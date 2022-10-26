@@ -3,6 +3,9 @@ const confirmButton = document.getElementById("confirm-button");
 const welcomeMsg = document.getElementById("welcome-message");
 const mainContainer = document.getElementById("main-container");
 let userName;
+let edit = false;
+let editVal;
+let el;
 
 user.addEventListener("input", function () {
   welcomeMsg.innerText = `Hello! ${user.value}`;
@@ -48,12 +51,22 @@ taskEntry.addEventListener("input", function () {
 });
 
 modalClose.addEventListener("click", function () {
+  if (!edit) {
+    // mainContainer.style.display = "block";
+    addTask();
+    // taskEntry.value = "";
+    // modalClose.disabled = "true";
+  } else {
+    el.value = taskEntry.value;
+    // mainContainer.style.display = "block";
+    // taskEntry.value = "";
+    // modalClose.disabled = "true";
+    edit = false;
+  }
+
   mainContainer.style.display = "block";
-  addTask();
   taskEntry.value = "";
   modalClose.disabled = "true";
-  const time = document.getElementById("time");
-  console.log(time.value);
 });
 
 // ********** Add task to main screen
@@ -69,12 +82,37 @@ function addTask() {
   newTask.value = taskEntry.value;
   taskList.appendChild(newItem);
   newItem.append(newTask);
-  deleteButton.innerHTML = `<img class = "delete-icon"src="/delete2.png">`;
-  deleteButton.classList.add("delete-button");
+  deleteButton.innerHTML = `<img id = "delete-button" class = "action-icon"src="/delete2.png">`;
+  deleteButton.classList.add("action-button");
   newItem.append(deleteButton);
-  editButton.innerHTML = `<img class = "delete-icon"src="/edit1.png">`;
-  editButton.classList.add("delete-button");
+  editButton.innerHTML = `<img id = "edit-button" class = "action-icon"src="/edit1.png" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`;
+  editButton.classList.add("action-button");
   deleteButton.after(editButton);
+  newTask.readOnly = "true";
+}
+
+const taskList = document.getElementById("task-list");
+
+taskList.addEventListener("click", function (e) {
+  if (e.target.id === "delete-button") {
+    e.target.parentElement.parentElement.remove();
+    // deleteItem.remove();
+  } else if (e.target.id === "edit-button") {
+    const editItem = e.target.parentElement.parentElement;
+    const val = editItem.firstChild.value;
+    el = editItem.firstChild;
+    console.log(val);
+    console.log(editItem);
+    edit = true;
+    mainContainer.style.display = "none";
+    editTask(val);
+    // a = "original task";
+    // editTask(a);
+  }
+});
+
+function editTask(val1) {
+  taskEntry.value = val1;
 }
 
 // *********** Maybe Implement **********

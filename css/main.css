@@ -194,7 +194,7 @@ li {
   align-items: center;
 }
 
-.delete-icon {
+.action-icon {
   background-color: #fa7d61;
   padding: 0.25rem;
   width: 2rem;
@@ -203,7 +203,7 @@ li {
   border: 1px solid #d3d2d2;
 }
 
-.delete-button {
+.action-button {
   padding: 0;
   border-radius: 4rem;
   border: none;
