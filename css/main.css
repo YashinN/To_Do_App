@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+}
+
+body {
+  /* background-color: black; */
+  /* width: 100%;
+  background-image: url("/zach-miller-WJAZ-pqQ6fw-unsplash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  position: relative; */
+
+  background: url(/background4.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+}
+
+/* ********** Welcome section styles********** */
+.container-welcome {
+  /* background-color: black; */
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: none;
+  padding: 0%;
+}
+
+#confirm-button {
+  background-color: #fa7d61;
+  border: white;
+}
+
+.container-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  max-width: 30rem;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  /* background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5); */
+  background: none;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.btn {
+  margin-top: 1.5rem;
+}
+
+/* ********** Welcome section styles********** */
+
+.main-container {
+  max-width: 960;
+  margin: 0 auto;
+  /* background-color: rgba(255, 255, 255, 0.66); */
+  text-align: center;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  display: block;
+  position: relative;
+  /* padding: 0; */
+}
+
+#add-task {
+  background-color: white;
+}
+
+.add-icon {
+  width: 5rem;
+  height: auto;
+  /* border: 1px solid black; */
+  border-radius: 6rem;
+  background-color: #fa7e61;
+  color: #fff;
+}
+
+/* #2c6dfc; */
+/* ******change div name */
+#add-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.add-task {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10rem;
+}
+
+h1 {
+  margin-bottom: 6rem;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  /* text-shadow: 2px 2px 4px black; */
+  text-shadow: 1px 1px 2px black, 0px 0px 10px black, 0px 0px 10px black,
+    0px -10px 10px black;
+}
+
+#user-image {
+  border-radius: 100%;
+  max-width: 7rem;
+  max-height: 7rem;
+  /* box-shadow: 0px 10px 10px; */
+  border: 2px solid #fa7e61;
+
+  /* #127475 */
+}
+
+.top {
+  padding-top: 4rem;
+  /* margin-bottom: 6rem; */
+  padding-bottom: 4rem;
+}
+
+h2 {
+  /* background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5); */
+  color: white;
+}
+
+.modal {
+  top: 30%;
+}
+
+.modal-content {
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.66);
+}
+
+.modal-backdrop {
+  /* opacity: 0 !important; */
+}
+
+#task-list {
+  margin: 0;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+.test1 {
+  padding: 1rem;
+}
+
+/* *******summary******** */
+span {
+  /* background-color: rgba(255, 255, 255, 0.66); */
+  /* background-color: #fff; */
+  color: rgb(219, 42, 18);
+  padding: 1rem;
+}
+
+.summary {
+  border-top: 1px solid rgba(255, 255, 255, 0.66);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.66);
+  height: 6rem;
+  margin-bottom: 11rem;
+  margin-top: 4rem;
+}
+
+.test3 {
+  background-color: #fa7d61;
+  border-radius: 1rem;
+}
+
+span {
+  color: #fff;
+}
+
+h3 {
+  color: #fa7d61;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon {
+  background-color: #fa7d61;
+  padding: 0.25rem;
+  width: 2rem;
+  height: auto;
+  border-radius: 4rem;
+  border: 1px solid #d3d2d2;
+}
+
+.delete-button {
+  padding: 0;
+  border-radius: 4rem;
+  border: none;
+  width: fit-content;
+  height: fit-content;
+  margin-left: 1rem;
+}
+
+.head {
+  margin-bottom: 2rem;
+}
+
+.hell {
+  background-color: #fa7d61;
+}
