@@ -1,3 +1,5 @@
+// DOM ELEMENTS
+
 const user = document.getElementById("username");
 const confirmButton = document.getElementById("confirm-button");
 const welcomeMsg = document.getElementById("welcome-message");
@@ -9,8 +11,16 @@ let userName;
 let edit = false;
 let editVal;
 let el;
-let totalTasks = 0;
 const d = new Date();
+
+// STATS SUMMARY ELEMENTS
+
+const statTotal = document.getElementById("stat-total");
+const statDeleted = document.getElementById("stat-deleted");
+const statCompleted = document.getElementById("stat-completed");
+let totalTasks = 0;
+let totalDeleted = 0;
+let totalCompleted = 0;
 
 user.addEventListener("input", function () {
   welcomeMsg.innerText = `Hello! ${user.value}`;
@@ -66,6 +76,7 @@ modalClose.addEventListener("click", function () {
     totalTasks += 1;
     setTimeout(function () {
       taskList.firstElementChild.scrollIntoView({ behavior: "smooth" });
+      statTotal.innerText = totalTasks;
     });
     // taskList.children[0].scrollIntoView();
     // taskEntry.value = "";
@@ -112,11 +123,13 @@ function addTask() {
   newTask.readOnly = "true";
 }
 
-function scroll() {}
-
 taskList.addEventListener("click", function (e) {
   if (e.target.id === "delete-button") {
     e.target.parentElement.parentElement.remove();
+    totalTasks -= 1;
+    totalDeleted += 1;
+    statDeleted.innerText = totalDeleted;
+    statTotal.innerText = totalTasks;
     // deleteItem.remove();
   } else if (e.target.id === "edit-button") {
     const editItem = e.target.parentElement.parentElement;
@@ -142,8 +155,12 @@ taskList.addEventListener("click", function (e) {
   if (e.target.id === "radio") {
     if (e.target.checked === true) {
       e.target.nextElementSibling.classList.add("completed-task");
+      totalCompleted += 1;
+      statCompleted.innerText = totalCompleted;
     } else {
       e.target.nextElementSibling.classList.remove("completed-task");
+      totalCompleted -= 1;
+      statCompleted.innerText = totalCompleted;
     }
   }
 });
