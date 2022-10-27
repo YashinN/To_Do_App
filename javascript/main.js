@@ -2,10 +2,15 @@ const user = document.getElementById("username");
 const confirmButton = document.getElementById("confirm-button");
 const welcomeMsg = document.getElementById("welcome-message");
 const mainContainer = document.getElementById("main-container");
+const taskList = document.getElementById("task-list");
+let userHour;
+let userMin;
 let userName;
 let edit = false;
 let editVal;
 let el;
+let totalTasks = 0;
+const d = new Date();
 
 user.addEventListener("input", function () {
   welcomeMsg.innerText = `Hello! ${user.value}`;
@@ -23,7 +28,8 @@ confirmButton.addEventListener("click", function () {
   } else {
     welcomeContainer.style.display = "none";
     mainContainer.style.display = "block";
-    userDisplay.innerText = userName;
+    // userDisplay.innerText = userName;
+    userHour = d.getHours();
   }
   console.log(userName);
 });
@@ -32,6 +38,9 @@ const userDisplay = document.querySelector("h4");
 
 // ********** Modal Open *********
 const addListButton = document.getElementById("add-button");
+// addListButton.scrollIntoView({
+//   behavior: "smooth",
+// });
 const modal = document.querySelector(".modal");
 addListButton.addEventListener("click", function () {
   mainContainer.style.display = "none";
@@ -54,10 +63,18 @@ modalClose.addEventListener("click", function () {
   if (!edit) {
     // mainContainer.style.display = "block";
     addTask();
+    totalTasks += 1;
+    setTimeout(function () {
+      taskList.firstElementChild.scrollIntoView({ behavior: "smooth" });
+    });
+    // taskList.children[0].scrollIntoView();
     // taskEntry.value = "";
     // modalClose.disabled = "true";
   } else {
     el.value = taskEntry.value;
+    setTimeout(function () {
+      el.scrollIntoView({ behavior: "smooth" });
+    });
     // mainContainer.style.display = "block";
     // taskEntry.value = "";
     // modalClose.disabled = "true";
@@ -74,13 +91,17 @@ modalClose.addEventListener("click", function () {
 function addTask() {
   const newItem = document.createElement("li");
   const newTask = document.createElement("input");
-  const taskList = document.getElementById("task-list");
   const deleteButton = document.createElement("button");
   const editButton = document.createElement("button");
+  const newRadio = document.createElement("input");
+  newRadio.type = "checkbox";
+  newRadio.classList.add("task-completed");
+  newRadio.id = "radio";
   newTask.type = "text";
   newTask.classList.add("form-control");
   newTask.value = taskEntry.value;
   taskList.appendChild(newItem);
+  newItem.append(newRadio);
   newItem.append(newTask);
   deleteButton.innerHTML = `<img id = "delete-button" class = "action-icon"src="/delete2.png">`;
   deleteButton.classList.add("action-button");
@@ -91,7 +112,7 @@ function addTask() {
   newTask.readOnly = "true";
 }
 
-const taskList = document.getElementById("task-list");
+function scroll() {}
 
 taskList.addEventListener("click", function (e) {
   if (e.target.id === "delete-button") {
@@ -99,10 +120,10 @@ taskList.addEventListener("click", function (e) {
     // deleteItem.remove();
   } else if (e.target.id === "edit-button") {
     const editItem = e.target.parentElement.parentElement;
-    const val = editItem.firstChild.value;
-    el = editItem.firstChild;
-    console.log(val);
-    console.log(editItem);
+    const val = editItem.children[1].value;
+    el = editItem.children[1];
+    // console.log(val);
+    console.log(editItem.children[1].value);
     edit = true;
     mainContainer.style.display = "none";
     editTask(val);
@@ -114,6 +135,18 @@ taskList.addEventListener("click", function (e) {
 function editTask(val1) {
   taskEntry.value = val1;
 }
+
+// ********Mark task as completed *******
+
+taskList.addEventListener("click", function (e) {
+  if (e.target.id === "radio") {
+    if (e.target.checked === true) {
+      e.target.nextElementSibling.classList.add("completed-task");
+    } else {
+      e.target.nextElementSibling.classList.remove("completed-task");
+    }
+  }
+});
 
 // *********** Maybe Implement **********
 

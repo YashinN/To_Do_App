@@ -68,6 +68,7 @@ body {
   min-height: 100%;
   display: block;
   position: relative;
+  margin-bottom: 2rem;
   /* padding: 0; */
 }
 
@@ -146,10 +147,11 @@ h2 {
 
 #task-list {
   margin: 0;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0;
 }
 
 li {
@@ -167,13 +169,23 @@ span {
   color: rgb(219, 42, 18);
   padding: 1rem;
 }
-
+/* 
 .summary {
   border-top: 1px solid rgba(255, 255, 255, 0.66);
   border-bottom: 1px solid rgba(255, 255, 255, 0.66);
   height: 6rem;
   margin-bottom: 11rem;
   margin-top: 4rem;
+  padding: 10px;
+} */
+
+.summary-row {
+  min-height: 8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.66);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.66);
+  margin-bottom: 11rem;
+  margin-top: 4rem;
+  padding: 1rem 0;
 }
 
 .test3 {
@@ -186,7 +198,8 @@ span {
 }
 
 h3 {
-  color: #fa7d61;
+  color: white;
+  margin-bottom: 0;
 }
 
 li {
@@ -218,4 +231,49 @@ li {
 
 .hell {
   background-color: #fa7d61;
+  height: 100%;
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.my-tasks-container {
+  background-color: #fa7d61;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  width: 25rem;
+}
+
+.task-completed {
+  margin-right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0;
+  background-color: white;
+  accent-color: #fa7d61;
+  cursor: pointer;
+}
+
+.task-completed:checked {
+  background-color: #fa7d61;
+}
+
+.task-top-row {
+  margin: 0;
+}
+
+.task-container {
+  padding: 0;
+}
+
+.task-col {
+  padding: 0;
+}
+
+.main-task-container {
+  padding: 0;
+}
+
+.completed-task {
+  text-decoration: 2px line-through #fa7d61;
 }
