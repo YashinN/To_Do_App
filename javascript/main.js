@@ -5,13 +5,15 @@ const confirmButton = document.getElementById("confirm-button");
 const welcomeMsg = document.getElementById("welcome-message");
 const mainContainer = document.getElementById("main-container");
 const taskList = document.getElementById("task-list");
-let userHour;
-let userMin;
+
 let userName;
+let userDate;
 let edit = false;
-let editVal;
-let el;
-const d = new Date();
+let taskId;
+
+let st = "task";
+
+const taskStorage = {};
 
 // STATS SUMMARY ELEMENTS
 
@@ -21,6 +23,16 @@ const statCompleted = document.getElementById("stat-completed");
 let totalTasks = 0;
 let totalDeleted = 0;
 let totalCompleted = 0;
+
+// MODAL ELEMENTS
+
+const cancelButton = document.querySelector(".cancel-button");
+const addListButton = document.getElementById("add-button");
+const modal = document.querySelector(".modal");
+const modalClose = document.querySelector(".create-button");
+const taskEntry = document.getElementById("task-entry");
+const dateEntry = document.getElementById("date-entry");
+const timeEntry = document.getElementById("time-entry");
 
 user.addEventListener("input", function () {
   welcomeMsg.innerText = `Hello! ${user.value}`;
@@ -39,7 +51,6 @@ confirmButton.addEventListener("click", function () {
     welcomeContainer.style.display = "none";
     mainContainer.style.display = "block";
     // userDisplay.innerText = userName;
-    userHour = d.getHours();
   }
   console.log(userName);
 });
@@ -47,19 +58,12 @@ confirmButton.addEventListener("click", function () {
 const userDisplay = document.querySelector("h4");
 
 // ********** Modal Open *********
-const addListButton = document.getElementById("add-button");
-// addListButton.scrollIntoView({
-//   behavior: "smooth",
-// });
-const modal = document.querySelector(".modal");
+
 addListButton.addEventListener("click", function () {
   mainContainer.style.display = "none";
 });
 
 // ********** Modal close *********
-
-const modalClose = document.getElementById("modal-close");
-const taskEntry = document.getElementById("task-entry");
 
 taskEntry.addEventListener("input", function () {
   if (taskEntry.value === "") {
@@ -71,30 +75,72 @@ taskEntry.addEventListener("input", function () {
 
 modalClose.addEventListener("click", function () {
   if (!edit) {
-    // mainContainer.style.display = "block";
     addTask();
     totalTasks += 1;
+
+    // write function
+
+    taskStorage[st + totalTasks] = [
+      taskEntry.value,
+      dateEntry.value,
+      timeEntry.value,
+    ];
+
+    taskList.lastElementChild.id = st + totalTasks;
+
     setTimeout(function () {
-      taskList.firstElementChild.scrollIntoView({ behavior: "smooth" });
+      taskList.lastChild.scrollIntoView({ behavior: "smooth" });
       statTotal.innerText = totalTasks;
     });
-    // taskList.children[0].scrollIntoView();
-    // taskEntry.value = "";
-    // modalClose.disabled = "true";
-  } else {
-    el.value = taskEntry.value;
+
     setTimeout(function () {
-      el.scrollIntoView({ behavior: "smooth" });
+      taskList.lastChild.firstElementChild.nextSibling.classList.add(
+        "entry-animation"
+      );
+    }, 200);
+
+    setTimeout(function () {
+      if (totalTasks !== 0) {
+        taskList.lastChild.firstElementChild.nextSibling.classList.remove(
+          "entry-animation"
+        );
+      }
+    }, 2001);
+  } else {
+    // write function
+
+    const editedTask =
+      document.getElementById(taskId).firstElementChild.nextSibling;
+
+    taskStorage[taskId][0] = taskEntry.value;
+    taskStorage[taskId][1] = dateEntry.value;
+    taskStorage[taskId][2] = timeEntry.value;
+
+    editedTask.value = taskStorage[taskId][0];
+
+    setTimeout(function () {
+      editedTask.scrollIntoView({ behavior: "smooth" });
     });
-    // mainContainer.style.display = "block";
-    // taskEntry.value = "";
-    // modalClose.disabled = "true";
+
+    setTimeout(function () {
+      editedTask.classList.add("entry-animation");
+    }, 200);
+
+    setTimeout(function () {
+      editedTask.classList.remove("entry-animation");
+    }, 2001);
+
     edit = false;
   }
 
   mainContainer.style.display = "block";
-  taskEntry.value = "";
+  resetValues(taskEntry, dateEntry, timeEntry);
   modalClose.disabled = "true";
+});
+
+cancelButton.addEventListener("click", function () {
+  mainContainer.style.display = "block";
+  resetValues(taskEntry, dateEntry, timeEntry);
 });
 
 // ********** Add task to main screen
@@ -124,30 +170,24 @@ function addTask() {
 }
 
 taskList.addEventListener("click", function (e) {
+  const key = e.target.parentElement.parentElement.id;
   if (e.target.id === "delete-button") {
     e.target.parentElement.parentElement.remove();
     totalTasks -= 1;
     totalDeleted += 1;
+    // write function
+    delete taskStorage[key];
     statDeleted.innerText = totalDeleted;
     statTotal.innerText = totalTasks;
-    // deleteItem.remove();
   } else if (e.target.id === "edit-button") {
-    const editItem = e.target.parentElement.parentElement;
-    const val = editItem.children[1].value;
-    el = editItem.children[1];
-    // console.log(val);
-    console.log(editItem.children[1].value);
+    taskEntry.value = taskStorage[key][0];
+    dateEntry.value = taskStorage[key][1];
+    timeEntry.value = taskStorage[key][2];
+    taskId = key;
     edit = true;
-    mainContainer.style.display = "none";
-    editTask(val);
-    // a = "original task";
-    // editTask(a);
+    modalClose.disabled = false;
   }
 });
-
-function editTask(val1) {
-  taskEntry.value = val1;
-}
 
 // ********Mark task as completed *******
 
@@ -164,6 +204,46 @@ taskList.addEventListener("click", function (e) {
     }
   }
 });
+
+// ********Function Reset Values To Default *******
+
+function resetValues(value1, value2, value3) {
+  for (val in arguments) {
+    arguments[val].value = "";
+  }
+}
+
+// ******** Date Functions Default *******
+
+function getDateCurrent() {
+  const currentDate1 = new Date();
+  const currentYear = currentDate1.getFullYear();
+  const currentMonth = currentDate1.getMonth();
+  const currentDay = currentDate1.getDay();
+
+  return currentYear + currentMonth + currentDay;
+}
+
+function getTimeCurrent() {
+  const currentDate2 = new Date();
+  const currentHour = currentDate2.getHours();
+  const currentMin = currentDate2.getMinutes();
+  return currentHour + currentMin;
+}
+
+function checkDate() {
+  for (const date in taskStorage) {
+    console.log(taskStorage[date][1]);
+    let x = taskStorage[date][1].split("-");
+    let y = taskStorage[date][2].split(":");
+    console.log(x.reduce(sum));
+    console.log(y.reduce(sum));
+  }
+}
+
+function sum(total, num) {
+  return parseInt(total) + parseInt(num);
+}
 
 // *********** Maybe Implement **********
 

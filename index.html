@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
+
+    <link href="https://fonts.googleapis.com/css2?family=Sono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- **************** -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -16,7 +19,11 @@
     <!-- **************** -->
     <link rel="stylesheet" href="/css/main.css" />
   </head>
-  <body class="conatiner-fluid">
+
+
+
+
+  <body id ="it"class="conatiner-fluid">
     <!-- ********** Welcome page this will be toggled off once user fills in username ********** -->
     <div id="container-welcome" class="container-fluid container-welcome">
       <div
@@ -49,28 +56,40 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h2 class="modal-title fs-5" id="staticBackdropLabel">Add Task</h2>
         </div>
         <div class="modal-body">
-          <input type="date">
-          <input
-          type="time"
-          class="form-control"
-          id="time"
-          placeholder="Username"
-          />
-          <input
-          type="text"
-          class="form-control"
-          id="task-entry"
-          placeholder="Username"
-          autocomplete="off"
-          />
+
+
+
+          <div class ="wrapper" >
+            <label  class ="form-label" for="date">Date</label>
+            <input id = "date-entry" class ="form-control optional-entry"type="date" name ="date">
+
+          </div>
+
+
+          <div class="wrapper">
+            <label class ="form-label" for="">Time</label>
+            <input id ="time-entry" type="Time" class="form-control optional-entry" id="time"/>
+          </div>
+
+
+          <div class="wrapper">
+            <label class ="form-label" for="">Task</label>
+            <input
+            type="text"
+            class="form-control"
+            id="task-entry"
+            autocomplete="off"
+            />
+          </div>
         </div>
+
+
         <div class="modal-footer">
-          <button id ="modal-close"type="button" class="btn btn-secondary" data-bs-dismiss="modal" disabled>Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
+          <button id ="modal-close"type="button" class="btn btn-primary create-button modal-button" data-bs-dismiss="modal" disabled>Close</button>
+          <button id = "modal-cancel" type="button" class="btn btn-primary cancel-button modal-button" data-bs-dismiss="modal" >Cancel</button>
         </div>
       </div>
     </div>
@@ -80,26 +99,11 @@
   
   
   <div id = "main-container" class = "main-container container">
-    
-    <!-- <div>
-      <label for="formFileLg" class="form-label">Large file input example</label>
-      <input id = "tt" class="form-control form-control-lg" id="formFileLg" type="file">
-    </div> -->
-    
-    
-    
-    
-    <div class = "container top text-center">
-      <div class ="row align-items-center">
-        <div class="col-8">
-          <div class = "test3">
-            <h2>Hi Yashin, What do you have planned for today......</h2>
-          </div>
-        </div>
-        
-        <div class="col-4 test1">
-          <img id= "user-image" class ="img-fluid" src="/P2.jpeg" alt="">
-          
+    <div class = "container top-section conatiner-fluid">
+      <img id= "user-image" class ="img-fluid" src="/P2.jpeg" alt="">
+      <div class="col-12">
+        <div class = "title-container">
+          <h1>Hi Yashin, What do you have planned?</h1>
         </div>
       </div>
     </div>
@@ -136,51 +140,46 @@
     </div>
     
     
-    
     <div class="add-task container">
       <!-- <h1>Task <span>List</span></h1> -->
-      <div>
         <button id = "add-button" type="button" class="btn-primary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="add-icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
+          <div class ="button-animation"></div>
         </button>
-      </div>
-      
       <!-- <span>addlist</span> -->
     </div>
     
-    
-    <div class="container main-task-container">
-      <div class = "row head">
-        <div class = "col-3 my-tasks-container">
-          <h3>MY TASKS</h3>
-        </div>
-      </div>
-      
       <div class = "row align-items-center task-top-row">
-        <div class="col-12 task-col">
+        <div class="col-12 task-col padding-none">
           <div class = "container task-container">
             <ul id = "task-list">
+
               <!-- <li>
-                <input id = "radio" class = "task-completed" name = "" type="checkbox" value = "">
-                <textarea name="" id="" cols="30" rows="1"></textarea>
                 <input
                 type="text-area"
                 class="form-control"
                 id="test"
                 placeholder="Username">
+                <button id = "edit-button" class="action-button"><img class = "action-icon"src="/delete2.png" alt=""></button>
+                <button id = "edit-button" class="action-button"><img class = "action-icon"src="/edit1.png" alt=""></button>
+              </li>
+              <li>
+                <input id = "radio" class = "task-completed" name = "" type="checkbox" value = "">
+
+                <input
+                type="text-area"
+                class="form-control test"
+                id="test"
+                placeholder="Username">
                 <button id = "edit-button" class="action-button"><img class = "action-icon"src="/edit1.png" alt=""></button>
                 <button id = "edit-button" class="action-button"><img class = "action-icon"src="/edit1.png" alt=""></button>
-              </li> -->
+                
+              </li>
+              -->
               
             </ul>
-            <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <input
-              type="text"
-              class="form-control"
-              id="username"
-              placeholder="Username" -->
             </div>
           </div>
         </div>
