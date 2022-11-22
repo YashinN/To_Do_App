@@ -23,7 +23,7 @@
 
 
 
-  <body id ="it"class="conatiner-fluid">
+  <body class="conatiner-fluid">
     <!-- ********** Welcome page this will be toggled off once user fills in username ********** -->
     <div id="container-welcome" class="container-fluid container-welcome">
       <div
@@ -61,6 +61,16 @@
         <div class="modal-body">
 
 
+          <div class="wrapper">
+            <label class ="form-label" for="">Task</label>
+            <input
+            type="text"
+            class="form-control"
+            id="task-entry"
+            autocomplete="off"
+            />
+          </div>
+
 
           <div class ="wrapper" >
             <label  class ="form-label" for="date">Date</label>
@@ -72,17 +82,6 @@
           <div class="wrapper">
             <label class ="form-label" for="">Time</label>
             <input id ="time-entry" type="Time" class="form-control optional-entry" id="time"/>
-          </div>
-
-
-          <div class="wrapper">
-            <label class ="form-label" for="">Task</label>
-            <input
-            type="text"
-            class="form-control"
-            id="task-entry"
-            autocomplete="off"
-            />
           </div>
         </div>
 
@@ -98,7 +97,7 @@
   
   
   
-  <div id = "main-container" class = "main-container container">
+  <div id = "main-container" class = "main-container container-fluid">
     <div class = "container top-section conatiner-fluid">
       <img id= "user-image" class ="img-fluid" src="/P2.jpeg" alt="">
       <div class="col-12">
@@ -106,37 +105,6 @@
           <h1>Hi Yashin, What do you have planned?</h1>
         </div>
       </div>
-    </div>
-    
-    
-    <div class = " summary container">
-      <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 align-items-center summary-row">
-        <div class = "col">
-          <div class = "hell">
-            <span>Completed</span>
-            <span id = "stat-completed" class = "task-stats">0</span>
-          </div>
-        </div>
-        <div class = "col">
-          <div class = "hell">
-            <span>Total</span>
-            <span id = "stat-total" class = "task-stats">0</span>
-          </div>
-        </div>
-        <div class = "col">
-          <div class = "hell">
-            <span>Overdue</span>
-            <span id = "stat-overdue" class = "task-stats" >0</span>
-          </div>
-        </div>
-        <div class = "col">
-          <div class = "hell">
-            <span>Deleted</span>
-            <span id = "stat-deleted" class = "task-stats" >0</span>
-          </div>
-        </div>
-      </div>
-      
     </div>
     
     
@@ -150,9 +118,38 @@
         </button>
       <!-- <span>addlist</span> -->
     </div>
+
+
+    <div class = "container summary-container">
+
+      <div class = "container stat-wrapper">
+        <div class = "stat-container">
+          <span class ="stat-title" >Completed</span>
+          <span id = "stat-completed" class = "task-stats">0</span>
+        </div>
+  
+        <div class = "stat-container">
+          <span class ="stat-title">Total</span>
+          <span id = "stat-total" class = "task-stats">0</span>
+        </div>
+
+        <div class = "stat-container">
+          <span class ="stat-title">Overdue</span>
+          <span id = "stat-overdue" class = "task-stats" >0</span>
+        </div>
+      </div>
+          
+          <div class="button-container">
+            <button id = "sort-button" class = "btn-primary">SORT</button>
+          </div>
+    </div>
+
+    <!-- <div class="button-container">
+      <button id = "sort-button" class = "btn-primary">SORT</button>
+    </div> -->
     
       <div class = "row align-items-center task-top-row">
-        <div class="col-12 task-col padding-none">
+        <div class="col-12 task-col">
           <div class = "container task-container">
             <ul id = "task-list">
 
@@ -166,18 +163,19 @@
                 <button id = "edit-button" class="action-button"><img class = "action-icon"src="/edit1.png" alt=""></button>
               </li>
               <li>
-                <input id = "radio" class = "task-completed" name = "" type="checkbox" value = "">
+                <input id = "radio" class = "task-completed" name = "" type="checkbox" value = "" >
 
                 <input
                 type="text-area"
                 class="form-control test"
                 id="test"
                 placeholder="Username">
+                <span id = "late-item">LATE</span>
                 <button id = "edit-button" class="action-button"><img class = "action-icon"src="/edit1.png" alt=""></button>
                 <button id = "edit-button" class="action-button"><img class = "action-icon"src="/edit1.png" alt=""></button>
                 
-              </li>
-              -->
+              </li> -->
+             
               
             </ul>
             </div>

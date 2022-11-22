@@ -7,12 +7,11 @@ const mainContainer = document.getElementById("main-container");
 const taskList = document.getElementById("task-list");
 
 let userName;
-let userDate;
 let edit = false;
 let taskId;
-
-let st = "task";
-
+let currentDate;
+let currentTime;
+let taskPrefix = "task";
 const taskStorage = {};
 
 // STATS SUMMARY ELEMENTS
@@ -21,8 +20,8 @@ const statTotal = document.getElementById("stat-total");
 const statDeleted = document.getElementById("stat-deleted");
 const statCompleted = document.getElementById("stat-completed");
 let totalTasks = 0;
-let totalDeleted = 0;
 let totalCompleted = 0;
+let totalLate = 0;
 
 // MODAL ELEMENTS
 
@@ -61,6 +60,16 @@ const userDisplay = document.querySelector("h4");
 
 addListButton.addEventListener("click", function () {
   mainContainer.style.display = "none";
+  timeEntry.disabled = true;
+});
+
+dateEntry.addEventListener("input", function () {
+  if (dateEntry.value === "") {
+    timeEntry.disabled = true;
+    timeEntry.value = "";
+  } else {
+    timeEntry.disabled = false;
+  }
 });
 
 // ********** Modal close *********
@@ -80,13 +89,13 @@ modalClose.addEventListener("click", function () {
 
     // write function
 
-    taskStorage[st + totalTasks] = [
+    taskStorage[taskPrefix + totalTasks] = [
       taskEntry.value,
       dateEntry.value,
       timeEntry.value,
     ];
 
-    taskList.lastElementChild.id = st + totalTasks;
+    taskList.lastElementChild.id = taskPrefix + totalTasks;
 
     setTimeout(function () {
       taskList.lastChild.scrollIntoView({ behavior: "smooth" });
@@ -151,6 +160,7 @@ function addTask() {
   const deleteButton = document.createElement("button");
   const editButton = document.createElement("button");
   const newRadio = document.createElement("input");
+  const lateItem = document.createElement("span");
   newRadio.type = "checkbox";
   newRadio.classList.add("task-completed");
   newRadio.id = "radio";
@@ -160,6 +170,15 @@ function addTask() {
   taskList.appendChild(newItem);
   newItem.append(newRadio);
   newItem.append(newTask);
+
+  console.log(newTask);
+  console.dir(newTask);
+
+  newTask.after(lateItem);
+  lateItem.classList.add("late-item");
+  lateItem.innerHTML = "DUE";
+  lateItem.classList.add("late-item");
+
   deleteButton.innerHTML = `<img id = "delete-button" class = "action-icon"src="/delete2.png">`;
   deleteButton.classList.add("action-button");
   newItem.append(deleteButton);
@@ -174,12 +193,11 @@ taskList.addEventListener("click", function (e) {
   if (e.target.id === "delete-button") {
     e.target.parentElement.parentElement.remove();
     totalTasks -= 1;
-    totalDeleted += 1;
     // write function
     delete taskStorage[key];
-    statDeleted.innerText = totalDeleted;
     statTotal.innerText = totalTasks;
   } else if (e.target.id === "edit-button") {
+    mainContainer.style.display = "none";
     taskEntry.value = taskStorage[key][0];
     dateEntry.value = taskStorage[key][1];
     timeEntry.value = taskStorage[key][2];
@@ -197,12 +215,22 @@ taskList.addEventListener("click", function (e) {
       e.target.nextElementSibling.classList.add("completed-task");
       totalCompleted += 1;
       statCompleted.innerText = totalCompleted;
+      taskStorage[e.target.parentElement.id][3] = "true";
     } else {
       e.target.nextElementSibling.classList.remove("completed-task");
       totalCompleted -= 1;
       statCompleted.innerText = totalCompleted;
+      taskStorage[e.target.parentElement.id][3] = "false";
     }
   }
+});
+
+// ******** Sort Tasks *******
+
+const sortButton = document.getElementById("sort-button");
+
+sortButton.addEventListener("click", function () {
+  sortTasks();
 });
 
 // ********Function Reset Values To Default *******
@@ -215,13 +243,16 @@ function resetValues(value1, value2, value3) {
 
 // ******** Date Functions Default *******
 
+function sum(total, num) {
+  return parseInt(total) + parseInt(num);
+}
+
 function getDateCurrent() {
   const currentDate1 = new Date();
   const currentYear = currentDate1.getFullYear();
   const currentMonth = currentDate1.getMonth();
-  const currentDay = currentDate1.getDay();
-
-  return currentYear + currentMonth + currentDay;
+  const currentDay = currentDate1.getDate();
+  return currentYear + currentMonth + currentDay + 1;
 }
 
 function getTimeCurrent() {
@@ -231,18 +262,68 @@ function getTimeCurrent() {
   return currentHour + currentMin;
 }
 
-function checkDate() {
+function checkDate(dateValue, timeValue) {
   for (const date in taskStorage) {
-    console.log(taskStorage[date][1]);
     let x = taskStorage[date][1].split("-");
     let y = taskStorage[date][2].split(":");
-    console.log(x.reduce(sum));
-    console.log(y.reduce(sum));
+
+    let b = x.reduce(sum);
+    let c = y.reduce(sum);
+
+    const overdueTask =
+      document.getElementById(date).firstElementChild.nextSibling;
+
+    const overdueItem =
+      document.getElementById(date).firstElementChild.nextSibling.nextSibling;
+
+    if (b === "") {
+      b = "unassigned";
+      overdueItem.style.display = "none";
+    } else if (b < dateValue) {
+      overdueItem.style.display = "block";
+    } else if (b <= dateValue && c <= timeValue) {
+      overdueItem.style.display = "block";
+    } else {
+      overdueItem.style.display = "none";
+    }
   }
 }
 
-function sum(total, num) {
-  return parseInt(total) + parseInt(num);
+setInterval(function () {
+  // if (totalTasks !== 0) {
+  //   currentDate = getDateCurrent();
+  //   currentTime = getTimeCurrent();
+  //   checkDate(currentDate, currentTime);
+  // }
+  currentDate = getDateCurrent();
+  currentTime = getTimeCurrent();
+  checkDate(currentDate, currentTime);
+}, 1);
+
+// *********** Check Overdue Task **********
+
+// *********** Function Sort All Tasks **********
+
+function sortTasks() {
+  const unsortedItems = Object.values(taskStorage);
+  const sortedItems = unsortedItems.sort();
+  const keyValues = Object.keys(taskStorage);
+  console.log(sortedItems);
+  console.log(keyValues);
+
+  for (let i in keyValues) {
+    const getTask = document.getElementById(keyValues[i]);
+
+    taskStorage[keyValues[i]] = sortedItems[i];
+    getTask.firstElementChild.nextSibling.value = taskStorage[keyValues[i]][0];
+    getTask.firstElementChild.checked = taskStorage[keyValues[i]][3];
+
+    if (getTask.firstElementChild.checked === true) {
+      getTask.firstElementChild.nextSibling.classList.add("completed-task");
+    } else {
+      getTask.firstElementChild.nextSibling.classList.remove("completed-task");
+    }
+  }
 }
 
 // *********** Maybe Implement **********
