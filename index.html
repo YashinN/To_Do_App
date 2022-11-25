@@ -25,18 +25,21 @@
 
   <body class="conatiner-fluid">
     <!-- ********** Welcome page this will be toggled off once user fills in username ********** -->
-    <div id="container-welcome" class="container-fluid container-welcome">
+    <div id="container-welcome" class="container-fluid ">
       <div
       class="card container text-center container-modal"
-      style=
       >
       <div class="card-body container">
+        <div class = "tooltip-container">
+          <span id = "username-tooltip">Please fill in your username.</span>
+        </div>
+        
         <h1 id="welcome-message" class="card-title">
-          Welcome,please enter your name!
+          Welcome,enter your name!
         </h1>
         <input
         type="text"
-        class="form-control"
+        class="form-control user-input"
         id="username"
         placeholder="Username"
         />
@@ -47,8 +50,6 @@
     </div>
   </div>
   <!-- ********** Welcome page this will be toggled off once user fills in username ********** -->
-  
-  
   
   
   <!-- Modal -->
@@ -99,24 +100,22 @@
   
   <div id = "main-container" class = "main-container container-fluid">
     <div class = "container top-section conatiner-fluid">
-      <img id= "user-image" class ="img-fluid" src="/P2.jpeg" alt="">
-      <div class="col-12">
-        <div class = "title-container">
-          <h1>Hi Yashin, What do you have planned?</h1>
+      <img id= "user-image" class ="img-fluid" src="/images/Profile-image.jpeg" alt="profile-image">
+      <div class="change ">
+        <div class = "container-fluid title-container">
+          <h1 id = "main-title">Hi Yashin, What do you have planned?</h1>
         </div>
       </div>
     </div>
     
     
     <div class="add-task container">
-      <!-- <h1>Task <span>List</span></h1> -->
         <button id = "add-button" type="button" class="btn-primary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="add-icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
           <div class ="button-animation"></div>
         </button>
-      <!-- <span>addlist</span> -->
     </div>
 
 
@@ -140,13 +139,15 @@
       </div>
           
           <div class="button-container">
-            <button id = "sort-button" class = "btn-primary">SORT</button>
+            <button id = "sort-button1" class = "sort-buttons desktop-button btn-primary">SORT</button>
           </div>
     </div>
 
-    <!-- <div class="button-container">
-      <button id = "sort-button" class = "btn-primary">SORT</button>
-    </div> -->
+    <div id = "mobile-button"class="button-container">
+      <button id = "sort-button2" class = "sort-buttons btn-primary">SORT</button>
+    </div>
+
+
     
       <div class = "row align-items-center task-top-row">
         <div class="col-12 task-col">

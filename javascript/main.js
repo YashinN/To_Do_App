@@ -5,6 +5,11 @@ const confirmButton = document.getElementById("confirm-button");
 const welcomeMsg = document.getElementById("welcome-message");
 const mainContainer = document.getElementById("main-container");
 const taskList = document.getElementById("task-list");
+const wlecomeMessage = document.getElementById("welcome-message");
+const usernameTooltip = document.getElementById("username-tooltip");
+const sortButton1 = document.getElementById("sort-button1");
+const sortButton2 = document.getElementById("sort-button2");
+const mainTitle = document.getElementById("main-title");
 
 let userName;
 let edit = false;
@@ -36,25 +41,32 @@ const timeEntry = document.getElementById("time-entry");
 user.addEventListener("input", function () {
   welcomeMsg.innerText = `Hello! ${user.value}`;
   if (!user.value) {
-    welcomeMsg.innerText = "Welcome,please enter your name!";
+    welcomeMsg.innerHTML = "Welcome,enter your name!";
   }
-  /*Check usernamevalue*/
 });
 
 confirmButton.addEventListener("click", function () {
   userName = user.value;
   const welcomeContainer = document.getElementById("container-welcome");
   if (!userName) {
-    alert("Please fill in username!");
+    setTimeout(function () {
+      welcomeMsg.classList.add("up-translate");
+      usernameTooltip.style.display = "block";
+      usernameTooltip.classList.add("tooltip-animation");
+      setTimeout(function () {
+        welcomeMsg.classList.remove("up-translate");
+        welcomeMsg.classList.add("down-translate");
+        usernameTooltip.style.display = "none";
+        usernameTooltip.classList.remove("tooltip-animation");
+      }, 5000);
+      welcomeMsg.classList.remove("down-translate");
+    });
   } else {
+    mainTitle.innerText = `Hi ${userName}, What do you have planned?`;
     welcomeContainer.style.display = "none";
     mainContainer.style.display = "block";
-    // userDisplay.innerText = userName;
   }
-  console.log(userName);
 });
-
-const userDisplay = document.querySelector("h4");
 
 // ********** Modal Open *********
 
@@ -161,6 +173,7 @@ function addTask() {
   const editButton = document.createElement("button");
   const newRadio = document.createElement("input");
   const lateItem = document.createElement("span");
+
   newRadio.type = "checkbox";
   newRadio.classList.add("task-completed");
   newRadio.id = "radio";
@@ -171,18 +184,15 @@ function addTask() {
   newItem.append(newRadio);
   newItem.append(newTask);
 
-  console.log(newTask);
-  console.dir(newTask);
-
   newTask.after(lateItem);
   lateItem.classList.add("late-item");
   lateItem.innerHTML = "DUE";
   lateItem.classList.add("late-item");
 
-  deleteButton.innerHTML = `<img id = "delete-button" class = "action-icon"src="/delete2.png">`;
+  deleteButton.innerHTML = `<img id = "delete-button" class = "action-icon"src="/images/delete-icon.png">`;
   deleteButton.classList.add("action-button");
   newItem.append(deleteButton);
-  editButton.innerHTML = `<img id = "edit-button" class = "action-icon"src="/edit1.png" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`;
+  editButton.innerHTML = `<img id = "edit-button" class = "action-icon"src="/images/edit-icon.png" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`;
   editButton.classList.add("action-button");
   deleteButton.after(editButton);
   newTask.readOnly = "true";
@@ -227,9 +237,11 @@ taskList.addEventListener("click", function (e) {
 
 // ******** Sort Tasks *******
 
-const sortButton = document.getElementById("sort-button");
+sortButton1.addEventListener("click", function () {
+  sortTasks();
+});
 
-sortButton.addEventListener("click", function () {
+sortButton2.addEventListener("click", function () {
   sortTasks();
 });
 
@@ -264,24 +276,21 @@ function getTimeCurrent() {
 
 function checkDate(dateValue, timeValue) {
   for (const date in taskStorage) {
-    let x = taskStorage[date][1].split("-");
-    let y = taskStorage[date][2].split(":");
+    let dateFormat = taskStorage[date][1].split("-");
+    let timeFormat = taskStorage[date][2].split(":");
 
-    let b = x.reduce(sum);
-    let c = y.reduce(sum);
-
-    const overdueTask =
-      document.getElementById(date).firstElementChild.nextSibling;
+    let dateCalc = dateFormat.reduce(sum);
+    let timeCalc = timeFormat.reduce(sum);
 
     const overdueItem =
       document.getElementById(date).firstElementChild.nextSibling.nextSibling;
 
-    if (b === "") {
+    if (dateCalc === "") {
       b = "unassigned";
       overdueItem.style.display = "none";
-    } else if (b < dateValue) {
+    } else if (dateCalc < dateValue) {
       overdueItem.style.display = "block";
-    } else if (b <= dateValue && c <= timeValue) {
+    } else if (dateCalc <= dateValue && timeCalc <= timeValue) {
       overdueItem.style.display = "block";
     } else {
       overdueItem.style.display = "none";
@@ -290,15 +299,10 @@ function checkDate(dateValue, timeValue) {
 }
 
 setInterval(function () {
-  // if (totalTasks !== 0) {
-  //   currentDate = getDateCurrent();
-  //   currentTime = getTimeCurrent();
-  //   checkDate(currentDate, currentTime);
-  // }
   currentDate = getDateCurrent();
   currentTime = getTimeCurrent();
   checkDate(currentDate, currentTime);
-}, 1);
+}, 3000);
 
 // *********** Check Overdue Task **********
 
@@ -308,8 +312,6 @@ function sortTasks() {
   const unsortedItems = Object.values(taskStorage);
   const sortedItems = unsortedItems.sort();
   const keyValues = Object.keys(taskStorage);
-  console.log(sortedItems);
-  console.log(keyValues);
 
   for (let i in keyValues) {
     const getTask = document.getElementById(keyValues[i]);
