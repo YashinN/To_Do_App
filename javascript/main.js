@@ -10,6 +10,7 @@ const usernameTooltip = document.getElementById("username-tooltip");
 const sortButton1 = document.getElementById("sort-button1");
 const sortButton2 = document.getElementById("sort-button2");
 const mainTitle = document.getElementById("main-title");
+const backgroundControls = document.querySelectorAll(".background-controls");
 
 let userName;
 let edit = false;
@@ -66,6 +67,12 @@ confirmButton.addEventListener("click", function () {
     welcomeContainer.style.display = "none";
     mainContainer.style.display = "block";
   }
+});
+
+// ********** Change background *********
+
+backgroundControls.forEach((button) => {
+  button.addEventListener("click", backgroundChange);
 });
 
 // ********** Modal Open *********
@@ -328,7 +335,13 @@ function sortTasks() {
   }
 }
 
-// *********** Maybe Implement **********
+function backgroundChange(imageIndex) {
+  imageIndex = Math.trunc(Math.random() * 10) + 1;
+  const backgroundImage = document.querySelector("body");
+  backgroundImage.style.background = `url(/images/background${imageIndex}.jpg) no-repeat center center fixed`;
+  backgroundImage.style.position = "relative";
+  backgroundImage.style.backgroundSize = "cover";
+}
 
 // const tt = document.getElementById("tt");
 
