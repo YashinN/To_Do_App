@@ -69,12 +69,6 @@ confirmButton.addEventListener("click", function () {
   }
 });
 
-// ********** Change background *********
-
-backgroundControls.forEach((button) => {
-  button.addEventListener("click", backgroundChange);
-});
-
 // ********** Modal Open *********
 
 addListButton.addEventListener("click", function () {
@@ -106,8 +100,6 @@ modalClose.addEventListener("click", function () {
     addTask();
     totalTasks += 1;
 
-    // write function
-
     taskStorage[taskPrefix + totalTasks] = [
       taskEntry.value,
       dateEntry.value,
@@ -119,7 +111,7 @@ modalClose.addEventListener("click", function () {
     setTimeout(function () {
       taskList.lastChild.scrollIntoView({ behavior: "smooth" });
       statTotal.innerText = totalTasks;
-    });
+    },200);
 
     setTimeout(function () {
       taskList.lastChild.firstElementChild.nextSibling.classList.add(
@@ -148,7 +140,7 @@ modalClose.addEventListener("click", function () {
 
     setTimeout(function () {
       editedTask.scrollIntoView({ behavior: "smooth" });
-    });
+    },200);
 
     setTimeout(function () {
       editedTask.classList.add("entry-animation");
@@ -203,6 +195,7 @@ function addTask() {
   editButton.classList.add("action-button");
   deleteButton.after(editButton);
   newTask.readOnly = "true";
+  // taskList.insertBefore(newItem, taskList.firstChild);
 }
 
 taskList.addEventListener("click", function (e) {
@@ -334,30 +327,3 @@ function sortTasks() {
     }
   }
 }
-
-function backgroundChange(imageIndex) {
-  imageIndex = Math.trunc(Math.random() * 10) + 1;
-  const backgroundImage = document.querySelector("body");
-  backgroundImage.style.background = `url(/images/background${imageIndex}.jpg) no-repeat center center fixed`;
-  backgroundImage.style.position = "relative";
-  backgroundImage.style.backgroundSize = "cover";
-}
-
-// const tt = document.getElementById("tt");
-
-// tt.addEventListener("change", function () {
-//   const reader = new FileReader();
-//   reader.addEventListener("load", () => {
-//     const uploadedImage = reader.result;
-//     document.querySelector("body").style.background = `url(${uploadedImage})`;
-//   });
-//   reader.readAsDataURL(this.files[0]);
-// });
-
-// ***********Maybe background - random **********
-
-// const arr = ["background1.jpg", "background2.jpg"];
-
-// const test = document.querySelector("body");
-
-// test.style.background = "url(background1.jpg)";
