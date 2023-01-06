@@ -385,12 +385,28 @@ li {
   animation-iteration-count: 2;
 }
 
+.entry-animation2{
+  animation: low 0.8s ease-in-out;
+  transition: all ease-in-out;
+  animation-direction: alternate;
+  animation-iteration-count: 2;
+}
+
 @keyframes high {
   0% {
   }
   100% {
     box-shadow: 0px 0px 0px 0.25rem #e39774;
   }
+}
+
+@keyframes low {
+  0% {
+  }
+  100% {
+   background-color: #e39774;
+  }
+
 }
 
 .form-control {
@@ -438,35 +454,17 @@ li {
   gap: 5rem;
 }
 
-#modal-close {
-  background-color: #00ffcb;
+#modal-close,.cancel-button {
+  background-color: #e39774;
   border: none;
   width: 6rem;
-  color: black;
-}
-.cancel-button {
-  background-color: #00ffcb;
-  border: none;
-  width: 6rem;
-  color: black;
+  color: white;
 }
 
-#modal-close:hover {
-  background-color: black;
-  color: #00ffcb;
-  border: 1px solid #00ffcb;
-}
-
-.cancel-button:hover {
-  background-color: black;
-  color: #00ffcb;
-  border: 1px solid #00ffcb;
-}
-
-.cancel-button:active {
-  background-color: black !important;
-  color: #00ffcb !important;
-  border: 1px solid #00ffcb !important;
+#modal-close:hover, .cancel-button:hover {
+  background-color: #25455b !important;
+  color: #e39774 !important;
+  border: 1px solid #e39774 !important;
 }
 
 .form-label {
@@ -525,11 +523,16 @@ li {
   border-radius: 1rem;
   color: white;
   letter-spacing: 0.5rem;
-  /* box-shadow: 0px 0px 10px 0.1rem #fff; */
+}
+
+.sort-buttons:active{
+  background-color: #25455b;
+  color: #e39774;
+  border: 1px solid #e39774;
 }
 
 .sort-buttons:hover {
-  animation: pulse 1.5s ease-in-out;
+  animation: pulse 0.35s ease-in-out;
   animation-direction: alternate;
   animation-iteration-count: 2;
 }
@@ -752,7 +755,7 @@ li {
   }
 
   li .form-control:focus {
-    box-shadow: 0px 0px 0px 2px #e39774;
+    box-shadow: 4px 0px 0px 0px #e39774;
   }
 
   .row {
@@ -801,3 +804,4 @@ li {
     font-size: 1.3rem;
   }
 }
+

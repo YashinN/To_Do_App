@@ -39,6 +39,7 @@ const taskEntry = document.getElementById("task-entry");
 const dateEntry = document.getElementById("date-entry");
 const timeEntry = document.getElementById("time-entry");
 
+
 user.addEventListener("input", function () {
   welcomeMsg.innerText = `Hello! ${user.value}`;
   if (!user.value) {
@@ -73,7 +74,7 @@ confirmButton.addEventListener("click", function () {
 
 addListButton.addEventListener("click", function () {
   mainContainer.style.display = "none";
-  timeEntry.disabled = true;
+  // timeEntry.disabled = true;
 });
 
 dateEntry.addEventListener("input", function () {
@@ -114,16 +115,29 @@ modalClose.addEventListener("click", function () {
     },200);
 
     setTimeout(function () {
-      taskList.lastChild.firstElementChild.nextSibling.classList.add(
-        "entry-animation"
-      );
+      if(window.innerWidth < 576){
+        taskList.lastChild.firstElementChild.nextSibling.classList.add(
+          "entry-animation2"
+        );
+      } else{
+        taskList.lastChild.firstElementChild.nextSibling.classList.add(
+          "entry-animation"
+        );
+      }
+    
     }, 200);
 
     setTimeout(function () {
       if (totalTasks !== 0) {
-        taskList.lastChild.firstElementChild.nextSibling.classList.remove(
-          "entry-animation"
-        );
+        if(window.innerWidth < 576){
+          taskList.lastChild.firstElementChild.nextSibling.classList.remove(
+            "entry-animation2"
+          );
+        } else{
+          taskList.lastChild.firstElementChild.nextSibling.classList.remove(
+            "entry-animation"
+          );
+        }
       }
     }, 2001);
   } else {
@@ -143,13 +157,20 @@ modalClose.addEventListener("click", function () {
     },200);
 
     setTimeout(function () {
-      editedTask.classList.add("entry-animation");
+      if(window.innerWidth <576){
+        editedTask.classList.add("entry-animation2");
+      } else{
+        editedTask.classList.add("entry-animation")
+      }
     }, 200);
 
     setTimeout(function () {
-      editedTask.classList.remove("entry-animation");
+      if(window.innerWidth <576){
+        editedTask.classList.remove("entry-animation2");
+      } else{
+        editedTask.classList.remove("entry-animation")
+      }
     }, 2001);
-
     edit = false;
   }
 
