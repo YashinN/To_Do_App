@@ -41,39 +41,50 @@ const timeEntry = document.getElementById("time-entry");
 
 
 user.addEventListener("input", function () {
-  welcomeMsg.innerText = `Hello! ${user.value}`;
+  welcomeMsg.innerText = `Welcome! ${user.value}`;
   if (!user.value) {
-    welcomeMsg.innerHTML = "Welcome,enter your name!";
+    welcomeMsg.innerHTML = "Hello,enter your name!";
   }
 });
 
 confirmButton.addEventListener("click", function () {
   userName = user.value;
   const welcomeContainer = document.getElementById("container-welcome");
+  const welcomeError = document.getElementById("username-tooltip");
   if (!userName) {
-    setTimeout(function () {
-      welcomeMsg.classList.add("up-translate");
-      usernameTooltip.style.display = "block";
-      usernameTooltip.classList.add("tooltip-animation");
-      setTimeout(function () {
-        welcomeMsg.classList.remove("up-translate");
-        welcomeMsg.classList.add("down-translate");
-        usernameTooltip.style.display = "none";
-        usernameTooltip.classList.remove("tooltip-animation");
-      }, 5000);
-      welcomeMsg.classList.remove("down-translate");
-    });
+    welcomeError.innerText = `Please fill in your username!`;
+    tooltipControl();
+  } else if(userName.length > 9){
+    console.log("error");
+    welcomeError.innerText = `Plese use 9 character or less!`;
+    tooltipControl();
   } else {
     if(window.innerWidth <= 407){
       mainTitle.innerHTML = `Hi ${userName}!
       Create a Todo.`;
     } else if (window.innerWidth > 407){
-      mainTitle.innerHTML = `Hi ${userName}!Create a Todo for today.`;
+      mainTitle.innerHTML = `Hi ${userName}! Create a Todo for today.`;
     }
     welcomeContainer.style.display = "none";
     mainContainer.style.display = "block";
   }
 });
+
+function tooltipControl (){
+  setTimeout(function () {
+    welcomeMsg.classList.add("up-translate");
+    usernameTooltip.style.display = "block";
+    usernameTooltip.classList.add("tooltip-animation");
+    setTimeout(function () {
+      welcomeMsg.classList.remove("up-translate");
+      welcomeMsg.classList.add("down-translate");
+      usernameTooltip.style.display = "none";
+      usernameTooltip.classList.remove("tooltip-animation");
+    }, 5000);
+    welcomeMsg.classList.remove("down-translate");
+  });
+
+}
 
 // ********** Modal Open *********
 
@@ -344,7 +355,7 @@ addEventListener("resize", function(){
     mainTitle.innerHTML = `Hi ${userName}!
     Create a Todo.`;
   } else if (window.innerWidth > 407){
-    mainTitle.innerHTML = `Hi ${userName}!Create a Todo for today.`;
+    mainTitle.innerHTML = `Hi ${userName}! Create a Todo for today.`;
   }
 });
 

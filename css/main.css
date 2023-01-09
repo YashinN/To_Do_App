@@ -7,9 +7,8 @@
 body {
   position: relative;
   background-color: #5c9ead;
-  /* background: url(/images/background.jpg) center center fixed;
   background-repeat: no-repeat;
-  background-size: cover; */
+  background-size: cover;
 }
 
 /* ********** Welcome Start Section********** */
@@ -49,7 +48,7 @@ body {
   max-width: 30rem;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
-  background: #5c9eadd9;
+  background: #5c9eadbf;
   border-radius: 0;
   border-left: 0;
   border-right: 0;
@@ -58,13 +57,13 @@ body {
 #welcome-message {
   letter-spacing: 1.5px;
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   transition: transform 1s;
   color: #25455b;
 }
 
 .up-translate {
-  transform: translateY(-10px);
+  transform: translateY(-15px);
 }
 
 .down-translate {
@@ -91,15 +90,23 @@ body {
 
 #username-tooltip {
   position: absolute;
-  background-color: black;
-  color: #00ffcb;
+  background-color: #25455b;
+  color: #fff;
   top: 30px;
-  box-shadow: 0px 0px 6px 0.1rem #00ffcb;
+  box-shadow: 0px 0px 6px 0.1rem #eef2f1;
   padding: 0.25rem 0.9rem;
   font-size: 15px;
   border-radius: 1rem;
   display: none;
   right: 25%;
+}
+
+.welcome-title{
+  text-align: center;
+  color: white;
+  font-size: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 0;
 }
 
 /* ********** Welcome Section End********** */
@@ -121,7 +128,7 @@ body {
 
 .top-section {
   padding: 10px 10px;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   background-color: #25455b;
@@ -152,7 +159,6 @@ body {
 }
 
 #main-title {
-  color: #00ffcb;
   color: white;
   font-size: 35px;
   margin: 0;
@@ -206,7 +212,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: row;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   justify-content: center;
   align-items: center;
 }
@@ -307,7 +313,7 @@ body {
 }
 
 .task-container {
-  background-color: hsla(191, 61%, 78%, 0.631);
+  background-color: #a5dde9a1;
   min-height: 20rem;
   border-radius: 1rem;
   padding: 2rem;
@@ -864,6 +870,10 @@ li {
 @media (max-width: 447px) {
   .top-section {
     padding: 1px;
+  }
+
+  .welcome-title{
+    font-size: 3.3rem;
   }
 
   #main-title {
