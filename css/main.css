@@ -6,7 +6,6 @@
 
 body {
   position: relative;
-  /* background-color: #a3dce9; */
   background-color: #5c9ead;
   /* background: url(/images/background.jpg) center center fixed;
   background-repeat: no-repeat;
@@ -126,14 +125,13 @@ body {
   display: block;
   position: relative;
   padding: 4rem 1rem;
-  /* background-color: #5c9ead; */
+  background-color: #5c9ead;
 }
 
 /* ********** Top Section Header Start ********** */
 
 .top-section {
   padding: 10px 10px;
-  padding-right: 0px;
   margin-bottom: 5rem;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
@@ -150,7 +148,7 @@ body {
   background-color: #5c9ead;
   position: absolute;
   display: flex;
-  right: 0rem;
+  right: 1rem;
 }
 
 #user-image {
@@ -613,6 +611,10 @@ li {
     animation: none;
   }
 
+  .text-wrapper1,.text-wrapper2{
+    width: 15rem;
+  }
+
 
 }
 
@@ -621,12 +623,29 @@ li {
     width: 9rem;
     height: 9rem;
   }
+
+  .text-wrapper1 span, .text-wrapper2 span{
+    font-size: 1.4rem;
+  }
+
+  .text-wrapper1,.text-wrapper2{
+    width: 15rem;
+  }
 }
 
 @media (max-width: 767px) {
   .title-container {
     padding: 1rem;
   }
+
+  .top-section{
+    margin-bottom: 3rem;
+  }
+
+  .add-task{
+    margin-bottom: 3rem;
+  }
+
   #main-title {
     font-size: 1.4rem;
   }
@@ -654,6 +673,19 @@ li {
     margin-right: 0.7rem;
     justify-content: space-around;
   }
+
+  .text-wrapper1,.text-wrapper2{
+    width: 11rem;
+  }
+
+  .text-wrapper1 span, .text-wrapper2 span{
+    font-size: 1.2rem;
+  }
+
+  #main-container{
+    padding: 4rem 1rem;
+  }
+  
 }
 
 @media (max-width: 680px) {
@@ -678,21 +710,27 @@ li {
     font-size: 1.4rem;
   }
 
+  #main-conatiner{
+    padding: 1rem 1rem;
+  }
+
   .buffer {
-    width: 60px;
+    width: 70px;
     height: 90px;
+    right: 0rem;
   }
 
   .top-section {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
   }
 
   .main-container{
-    padding: 1rem;
+   padding:0;
+   padding-top: 0;
   }
 
   .add-task {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
   }
 
   .change {
@@ -736,7 +774,7 @@ li {
   .task-container {
     padding: 1rem;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   li {
@@ -813,6 +851,17 @@ li {
   #main-title {
     font-size: 1.3rem;
   }
+  #main-container{
+    padding: 2rem 1rem;
+  }
+
+  .text-wrapper1,.text-wrapper2{
+    width: 9rem;
+  }
+
+  .text-wrapper1 span, .text-wrapper2 span{
+    font-size: 1rem;
+  }
 }
 
 
@@ -828,6 +877,28 @@ li {
   #main-title {
     font-size: 1.3rem;
   }
+
+  .text-wrapper1,.text-wrapper2{
+    width: 7rem;
+  }
+
+  .top-section{
+    margin-bottom: 2rem;
+  }
+
+  .add-task{
+    margin-bottom: 2rem;
+  }
+
+  .text-wrapper1 span, .text-wrapper2 span{
+    font-size: 1rem;
+  }
+
+  .task-container{
+    min-height: 18rem;
+  }
+
+
 }
 
 @media (max-width: 390px) {
