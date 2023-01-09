@@ -17,7 +17,7 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  display: none;
+  display: block;
   padding: 0%;
 }
 
@@ -29,23 +29,12 @@ body {
   width: 100%;
 }
 
-#confirm-button:active {
-  color: #00ffcb;
-  background-color: black;
-  border: 1px solid #00ffcb;
+#confirm-button:active, #confirm-button:focus ,#confirm-button:hover {
+  color: #e39774;
+  background-color: #25455b;
+  border: 1px solid #e39774;
 }
 
-#confirm-button:focus {
-  color: #00ffcb;
-  background-color: black;
-  border: 1px solid #00ffcb;
-}
-
-/* #confirm-button:hover {
-  color: #00ffcb;
-  background-color: black;
-  border: 1px solid #00ffcb;
-} */
 
 .user-input {
   margin-bottom: 2rem;
@@ -122,7 +111,7 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  display: block;
+  display: none;
   position: relative;
   padding: 4rem 1rem;
   background-color: #5c9ead;
@@ -318,7 +307,7 @@ body {
 }
 
 .task-container {
-  background-color: #a3dce9a1;
+  background-color: hsla(191, 61%, 78%, 0.631);
   min-height: 20rem;
   border-radius: 1rem;
   padding: 2rem;
@@ -339,7 +328,7 @@ li {
 }
 
 .completed-task {
-  text-decoration: 3px line-through #00ffcb;
+  text-decoration: 3px line-through #e39774;
 }
 
 .action-button {
@@ -551,17 +540,14 @@ li {
 
 .late-item {
   position: absolute;
-  color: #326273;
+  color:  hsl(191, 61%, 78%);
   z-index: 1;
   right: 7rem;
-  background-color: rgba(255, 255, 255, 0.641);
-  border-radius: 5px;
-  padding: 4px 0.5rem;
   display: none;
-  border: 1px solid white;
   letter-spacing: 0.3rem;
   font-weight: 600;
-  border: none;
+  background-color: #25455b;
+  padding-left:0.2rem;
 }
 
 .form-control:disabled {
@@ -613,6 +599,12 @@ li {
 
   .text-wrapper1,.text-wrapper2{
     width: 15rem;
+  }
+
+  #confirm-button:hover{
+    background-color: #e39774;
+    border: none;
+    color: white;
   }
 
 
@@ -748,7 +740,7 @@ li {
 
   #sort-button2 {
     margin-bottom: 1.5rem;
-    width: 95%;
+    width: 100%;
   }
 
   #sort-button1.desktop-button {
@@ -825,6 +817,10 @@ li {
 
   #username-tooltip {
     right: 20%;
+  }
+
+  .late-item{
+    right: 4rem;
   }
 }
 

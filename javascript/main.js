@@ -64,7 +64,12 @@ confirmButton.addEventListener("click", function () {
       welcomeMsg.classList.remove("down-translate");
     });
   } else {
-    mainTitle.innerText = `Hi ${userName}, What do you have planned?`;
+    if(window.innerWidth <= 407){
+      mainTitle.innerHTML = `Hi ${userName}!
+      Create a Todo.`;
+    } else if (window.innerWidth > 407){
+      mainTitle.innerHTML = `Hi ${userName}!Create a Todo for today.`;
+    }
     welcomeContainer.style.display = "none";
     mainContainer.style.display = "block";
   }
@@ -329,6 +334,21 @@ setInterval(function () {
 }, 3000);
 
 // *********** Check Overdue Task **********
+
+
+
+// *********** Change Mobile Title **********
+
+addEventListener("resize", function(){
+  if(window.innerWidth <= 407){
+    mainTitle.innerHTML = `Hi ${userName}!
+    Create a Todo.`;
+  } else if (window.innerWidth > 407){
+    mainTitle.innerHTML = `Hi ${userName}!Create a Todo for today.`;
+  }
+});
+
+
 
 // *********** Function Sort All Tasks **********
 
