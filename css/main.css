@@ -57,7 +57,7 @@ body {
 #welcome-message {
   letter-spacing: 1.5px;
   font-size: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.25rem;
   transition: transform 1s;
   color: #25455b;
 }
@@ -107,6 +107,10 @@ body {
   font-size: 4rem;
   margin-top: 2rem;
   margin-bottom: 0;
+}
+
+#username::placeholder{
+  color: #5c9ead;
 }
 
 /* ********** Welcome Section End********** */
@@ -179,7 +183,6 @@ body {
 .text-wrapper1{
   width: 18rem;
   border-bottom: 1px solid #fff;
-  /* border-top: 1px solid #fff; */
   background-color: #25455b;
   background: linear-gradient(135deg, transparent 25px, #25455b 0);
   margin-right: -5px;
@@ -187,7 +190,6 @@ body {
 
 .text-wrapper2{
   width: 18rem;
-  /* border-bottom: 1px solid #fff; */
   border-top: 1px solid #fff;
   background-color: #25455b;
   background: linear-gradient(-45deg, transparent 25px, #25455b 0);
@@ -267,6 +269,8 @@ body {
 
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
+  background-color: #e39774;
+  
 }
 
 @keyframes pulse-strong {
@@ -911,4 +915,18 @@ li {
   .stat-container{
     padding: 0.8rem;
   }
+}
+
+#task-entry::placeholder{
+  color: white;
+}
+
+
+
+input[type = "date"]{
+  color: #e39774;
+}
+
+input[type = "time"]{
+  color: #e39774;
 }

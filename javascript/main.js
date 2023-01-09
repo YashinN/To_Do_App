@@ -56,7 +56,7 @@ confirmButton.addEventListener("click", function () {
     tooltipControl();
   } else if(userName.length > 9){
     console.log("error");
-    welcomeError.innerText = `Plese use 9 character or less!`;
+    welcomeError.innerText = `Plese use 9 characters or less!`;
     tooltipControl();
   } else {
     if(window.innerWidth <= 407){
