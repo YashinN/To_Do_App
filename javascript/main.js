@@ -107,20 +107,20 @@ modalClose.addEventListener("click", function () {
       timeEntry.value,
     ];
 
-    taskList.lastElementChild.id = taskPrefix + totalTasks;
+    taskList.firstElementChild.id = taskPrefix + totalTasks;
 
     setTimeout(function () {
-      taskList.lastChild.scrollIntoView({ behavior: "smooth" });
+      taskList.firstChild.scrollIntoView({ behavior: "smooth" });
       statTotal.innerText = totalTasks;
-    },200);
+    },100);
 
     setTimeout(function () {
       if(window.innerWidth < 576){
-        taskList.lastChild.firstElementChild.nextSibling.classList.add(
+        taskList.firstChild.firstElementChild.nextSibling.classList.add(
           "entry-animation2"
         );
       } else{
-        taskList.lastChild.firstElementChild.nextSibling.classList.add(
+        taskList.firstChild.firstElementChild.nextSibling.classList.add(
           "entry-animation"
         );
       }
@@ -130,11 +130,11 @@ modalClose.addEventListener("click", function () {
     setTimeout(function () {
       if (totalTasks !== 0) {
         if(window.innerWidth < 576){
-          taskList.lastChild.firstElementChild.nextSibling.classList.remove(
+          taskList.firstChild.firstElementChild.nextSibling.classList.remove(
             "entry-animation2"
           );
         } else{
-          taskList.lastChild.firstElementChild.nextSibling.classList.remove(
+          taskList.firstChild.firstElementChild.nextSibling.classList.remove(
             "entry-animation"
           );
         }
@@ -200,7 +200,7 @@ function addTask() {
   newTask.type = "text";
   newTask.classList.add("form-control");
   newTask.value = taskEntry.value;
-  taskList.appendChild(newItem);
+  taskList.insertBefore(newItem, taskList.firstChild);
   newItem.append(newRadio);
   newItem.append(newTask);
 
@@ -209,26 +209,29 @@ function addTask() {
   lateItem.innerHTML = "DUE";
   lateItem.classList.add("late-item");
 
-  deleteButton.innerHTML = `<img id = "delete-button" class = "action-icon"src="/images/delete-icon.png">`;
+  deleteButton.innerHTML = `<img id = "delete-button" class = "action-icon"src="/icons/delete-icon.png">`;
   deleteButton.classList.add("action-button");
   newItem.append(deleteButton);
-  editButton.innerHTML = `<img id = "edit-button" class = "action-icon"src="/images/edit-icon.png" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`;
+  editButton.innerHTML = `<img id = "edit-button" class = "action-icon"src="/icons/edit-icon.png" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`;
   editButton.classList.add("action-button");
   deleteButton.after(editButton);
   newTask.readOnly = "true";
-  // taskList.insertBefore(newItem, taskList.firstChild);
 }
 
 taskList.addEventListener("click", function (e) {
   const key = e.target.parentElement.parentElement.id;
   if (e.target.id === "delete-button") {
-    e.target.parentElement.parentElement.remove();
+    setTimeout(function () {
+      e.target.parentElement.parentElement.remove();
+    },100);
     totalTasks -= 1;
     // write function
     delete taskStorage[key];
     statTotal.innerText = totalTasks;
   } else if (e.target.id === "edit-button") {
-    mainContainer.style.display = "none";
+    setTimeout(function () {
+      mainContainer.style.display = "none";;
+    },100);
     taskEntry.value = taskStorage[key][0];
     dateEntry.value = taskStorage[key][1];
     timeEntry.value = taskStorage[key][2];
@@ -331,13 +334,18 @@ setInterval(function () {
 
 function sortTasks() {
   const unsortedItems = Object.values(taskStorage);
+  console.log(taskStorage);
+  console.log(unsortedItems)
   const sortedItems = unsortedItems.sort();
+  console.log(sortedItems);
   const keyValues = Object.keys(taskStorage);
+  console.log(keyValues);
+  let numItems = Object.keys(taskStorage).length;
+  console.log(numItems);
 
   for (let i in keyValues) {
     const getTask = document.getElementById(keyValues[i]);
-
-    taskStorage[keyValues[i]] = sortedItems[i];
+    taskStorage[keyValues[i]] = sortedItems[numItems-1];
     getTask.firstElementChild.nextSibling.value = taskStorage[keyValues[i]][0];
     getTask.firstElementChild.checked = taskStorage[keyValues[i]][3];
 
@@ -346,5 +354,9 @@ function sortTasks() {
     } else {
       getTask.firstElementChild.nextSibling.classList.remove("completed-task");
     }
+    numItems-=1;
   }
+
+  
+  
 }

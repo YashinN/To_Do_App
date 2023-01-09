@@ -6,6 +6,7 @@
 
 body {
   position: relative;
+  /* background-color: #a3dce9; */
   background-color: #5c9ead;
   /* background: url(/images/background.jpg) center center fixed;
   background-repeat: no-repeat;
@@ -125,7 +126,7 @@ body {
   display: block;
   position: relative;
   padding: 4rem 1rem;
-  background-color: #5c9ead;
+  /* background-color: #5c9ead; */
 }
 
 /* ********** Top Section Header Start ********** */
@@ -133,7 +134,7 @@ body {
 .top-section {
   padding: 10px 10px;
   padding-right: 0px;
-  margin-bottom: 8rem;
+  margin-bottom: 5rem;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   background-color: #25455b;
@@ -218,7 +219,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: row;
-  margin-bottom: 8rem;
+  margin-bottom: 5rem;
   justify-content: center;
   align-items: center;
 }
@@ -238,7 +239,6 @@ body {
   padding: 0;
   width: fit-content;
   position: relative;
-  /* animation: pulse 3s infinite ease-in-out; */
   animation-direction: alternate;
 }
 
@@ -254,10 +254,6 @@ body {
   animation-direction: alternate;
 }
 
-/* #add-button:hover > .button-animation {
-  animation: ring 1s infinite;
-  animation-direction: alternate;
-} */
 
 #add-button:hover > .add-icon {
   animation: pulse-strong 1s infinite;
@@ -319,8 +315,15 @@ body {
   padding: 0;
 }
 
+.task-top-row{
+  margin-bottom:3rem;
+}
+
 .task-container {
-  padding: 0;
+  background-color: #a3dce9a1;
+  min-height: 20rem;
+  border-radius: 1rem;
+  padding: 2rem;
 }
 
 input[type="checkbox"] {
@@ -494,7 +497,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-ev;
-  margin-bottom: 8rem;
+  margin-bottom: 1rem;
   padding: 1rem 0;
 }
 
@@ -588,6 +591,29 @@ li {
     width: 9rem;
     height: 9rem;
   }
+
+  #add-button:hover > .add-icon {
+    animation: none;
+  }
+
+  .add-icon{
+    animation: none;
+    border: 3px solid #e39774;
+  }
+
+  .action-icon:hover {
+    animation: pulse none;
+  }
+
+  .action-icon:active{
+    background-color: #e39774;
+  }
+
+  .sort-buttons:hover{
+    animation: none;
+  }
+
+
 }
 
 @media (max-width: 890px) {
@@ -603,6 +629,10 @@ li {
   }
   #main-title {
     font-size: 1.4rem;
+  }
+
+  .task-container{
+    padding: 2rem 1rem;
   }
 
   .change {
@@ -650,11 +680,15 @@ li {
 
   .buffer {
     width: 60px;
+    height: 90px;
   }
 
   .top-section {
-    margin-top: 1rem;
     margin-bottom: 5rem;
+  }
+
+  .main-container{
+    padding: 1rem;
   }
 
   .add-task {
@@ -667,14 +701,6 @@ li {
 
   .summary-container {
     margin-bottom: 1.5rem;
-  }
-
-  .top-section {
-    /* display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row-reverse;
-    gap: 0.6rem; */
   }
 
   #user-image {
@@ -707,21 +733,14 @@ li {
     padding: 0;
   }
 
-  #task-list {
-    margin: 0 0.5rem;
-    /* width: 95%; */
-    padding: 0;
-    margin-bottom: 10rem;
-  }
-
   .task-container {
-    padding: 0;
+    padding: 1rem;
     width: 100%;
+    margin-bottom: 1rem;
   }
 
   li {
     gap: 0;
-    /* align-items: flex-end; */
   }
 
   li .form-control {
@@ -771,18 +790,25 @@ li {
   }
 }
 
-@media (max-width: 485px) {
-  #user-image {
-    
-  }
+
+@media (max-width: 536px) {
 
   .top-section {
     padding: 1px;
   }
 
-  /* #main-title {
+  #main-title {
     white-space: pre-line;
-  } */
+  }
+
+
+}
+
+@media (max-width: 485px) {
+
+  .top-section {
+    padding: 1px;
+  }
 
   #main-title {
     font-size: 1.3rem;
@@ -791,7 +817,6 @@ li {
 
 
 @media (max-width: 447px) {
-
   .top-section {
     padding: 1px;
   }
@@ -805,3 +830,8 @@ li {
   }
 }
 
+@media (max-width: 390px) {
+  .stat-container{
+    padding: 0.8rem;
+  }
+}
