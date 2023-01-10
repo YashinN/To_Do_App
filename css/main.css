@@ -491,6 +491,22 @@ li {
   color: #5c9ead;
 }
 
+input[type = "date"]:disabled , input[type ="time"]:disabled{
+  background-color: #25455baf;
+  color: #5c9ead;
+}
+
+#modal-error{
+  background-color: #25455b;
+  color: #fff;
+  box-shadow: 0px 0px 6px 0.1rem #eef2f1;
+  padding: 0.25rem 0.9rem;
+  font-size: 15px;
+  border-radius: 1rem;
+  display: none;
+
+}
+
 
 /* ********** Add Task Modal Section End ********** */
 

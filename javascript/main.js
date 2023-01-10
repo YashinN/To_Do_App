@@ -38,6 +38,7 @@ const modalClose = document.querySelector(".create-button");
 const taskEntry = document.getElementById("task-entry");
 const dateEntry = document.getElementById("date-entry");
 const timeEntry = document.getElementById("time-entry");
+const modalerror = document.getElementById("modal-error");
 
 
 user.addEventListener("input", function () {
@@ -90,30 +91,78 @@ function tooltipControl (){
 
 addListButton.addEventListener("click", function () {
   mainContainer.style.display = "none";
-  // timeEntry.disabled = true;
+  timeEntry.disabled = true;
+  dateEntry.disabled = true;
 });
 
 dateEntry.addEventListener("input", function () {
   if (dateEntry.value === "") {
+    dateEntry.style.color = "#5c9ead";
     timeEntry.disabled = true;
-    timeEntry.value = "";
   } else {
     timeEntry.disabled = false;
+    dateEntry.style.color = "white";
   }
+  checkDisabled(timeEntry);
+
 });
+
+timeEntry.addEventListener("input",function () {
+  if(timeEntry.value === ""){
+    timeEntry.style.color = "#5c9ead";
+  } else {
+    timeEntry.style.color = "white";
+  }
+
+});
+
+
+taskEntry.addEventListener("input", function () {
+  
+  if (taskEntry.value === "") {
+    timeEntry.disabled = true;
+    dateEntry.disabled = true;
+    modalClose.disabled = true;
+  } else {
+    timeDisabled();
+    modalClose.disabled = false;
+    dateEntry.disabled = false;
+  } 
+  checkDisabled(dateEntry,timeEntry);
+
+});
+
+
+
+function timeDisabled (){
+  if(dateEntry.value !== ""){
+    timeEntry.disabled = false;
+
+  }
+}
+
+function checkDisabled (date, time){
+  for (val in arguments) {
+    if(arguments[val].value !== "" && arguments[val].disabled === true){
+      arguments[val].style.color = "#5c9ead";
+    } else if (arguments[val].value !== ""){
+      arguments[val].style.color = "white";
+    } 
+  }
+  // if(date.value !== "" && date.disabled === true){
+  //   date.style.color = "white";
+  // } else if(date.value !== ""){
+  //   dateEntry.style.color = "#5c9ead";
+  // }
+}
 
 // ********** Modal close *********
 
-taskEntry.addEventListener("input", function () {
-  if (taskEntry.value === "") {
-    modalClose.disabled = true;
-  } else {
-    modalClose.disabled = false;
-  }
-});
+
 
 modalClose.addEventListener("click", function () {
   if (!edit) {
+    fixTime();
     addTask();
     totalTasks += 1;
 
@@ -199,6 +248,13 @@ cancelButton.addEventListener("click", function () {
   mainContainer.style.display = "block";
   resetValues(taskEntry, dateEntry, timeEntry);
 });
+
+function fixTime(){
+  if(timeEntry.disabled === true){
+    timeEntry.value = "";
+  }
+
+}
 
 // ********** Add task to main screen
 
