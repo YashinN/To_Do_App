@@ -267,11 +267,7 @@ body {
   }
 }
 
-::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  background-color: #e39774;
-  
-}
+
 
 @keyframes pulse-strong {
   0% {
@@ -482,6 +478,19 @@ li {
   justify-content: flex-start;
   gap: 1rem;
 }
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  background-color: #a36152;
+  padding: 3px;
+  border-radius: 2px;
+  
+}
+
+#task-entry::placeholder,input[type ="date"],input[type="time"]{
+  color: #5c9ead;
+}
+
 
 /* ********** Add Task Modal Section End ********** */
 
@@ -917,16 +926,3 @@ li {
   }
 }
 
-#task-entry::placeholder{
-  color: white;
-}
-
-
-
-input[type = "date"]{
-  color: #e39774;
-}
-
-input[type = "time"]{
-  color: #e39774;
-}
