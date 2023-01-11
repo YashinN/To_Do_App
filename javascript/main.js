@@ -38,7 +38,7 @@ const modalClose = document.querySelector(".create-button");
 const taskEntry = document.getElementById("task-entry");
 const dateEntry = document.getElementById("date-entry");
 const timeEntry = document.getElementById("time-entry");
-const modalerror = document.getElementById("modal-error");
+const modalError = document.getElementById("modal-error");
 const modalTitle = document.getElementById("staticBackdropLabel");
 
 
@@ -110,6 +110,31 @@ dateEntry.addEventListener("input", function () {
   checkDisabled(timeEntry);
 
 });
+
+taskEntry.addEventListener("focusin",function () {
+  modalError.style.display = "block";
+  modalError.innerText = "Fill in a Todo!";
+  taskEntry.addEventListener("focusout",function () {
+    modalError.style.display = "none";
+  });
+});
+
+dateEntry.addEventListener("focusin",function () {
+  modalError.style.display = "block";
+  modalError.innerText = "Optional - Fill in a date!";
+  dateEntry.addEventListener("focusout",function () {
+    modalError.style.display = "none";
+  });
+});
+
+timeEntry.addEventListener("focusin",function () {
+  modalError.style.display = "block";
+  modalError.innerText = "Optional - Fill in a time!!";
+  timeEntry.addEventListener("focusout",function () {
+    modalError.style.display = "none";
+  });
+});
+
 
 timeEntry.addEventListener("input",function () {
   if(timeEntry.value === ""){
