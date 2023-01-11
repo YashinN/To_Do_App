@@ -317,6 +317,7 @@ body {
   min-height: 20rem;
   border-radius: 1rem;
   padding: 2rem;
+  /* border: 3px solid #a5dde9a1;; */
 }
 
 input[type="checkbox"] {
@@ -439,10 +440,10 @@ li {
 
 .modal-title {
   color: white;
-  background-color: #25455b;
-  max-width: 15rem;
-  padding: 0.3rem 1rem;
-  border-radius: 2rem;
+  /* max-width: 15rem; */
+  padding: 0.3rem 0.6rem;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
 }
 
 .modal-footer {
@@ -465,11 +466,12 @@ li {
 
 .form-label {
   color: white;
-  background-color: #25455b;
   padding: 0 0.6rem;
   border-radius: 2rem;
   margin: 0;
   text-align: center;
+  letter-spacing: 1.2px;
+  font-size: 1.1rem;
 }
 
 .wrapper {

@@ -39,6 +39,7 @@ const taskEntry = document.getElementById("task-entry");
 const dateEntry = document.getElementById("date-entry");
 const timeEntry = document.getElementById("time-entry");
 const modalerror = document.getElementById("modal-error");
+const modalTitle = document.getElementById("staticBackdropLabel");
 
 
 user.addEventListener("input", function () {
@@ -93,6 +94,9 @@ addListButton.addEventListener("click", function () {
   mainContainer.style.display = "none";
   timeEntry.disabled = true;
   dateEntry.disabled = true;
+  timeEntry.style.color = "#5c9ead";
+  dateEntry.style.color = "#5c9ead";
+  modalTitle.innerText = "Add Todo";
 });
 
 dateEntry.addEventListener("input", function () {
@@ -206,7 +210,6 @@ modalClose.addEventListener("click", function () {
       }
     }, 2001);
   } else {
-    // write function
 
     const editedTask =
       document.getElementById(taskId).firstElementChild.nextSibling;
@@ -301,6 +304,7 @@ taskList.addEventListener("click", function (e) {
     delete taskStorage[key];
     statTotal.innerText = totalTasks;
   } else if (e.target.id === "edit-button") {
+    modalTitle.innerText = "Edit Todo";
     setTimeout(function () {
       mainContainer.style.display = "none";;
     },100);
