@@ -18,16 +18,18 @@ let taskId;
 let currentDate;
 let currentTime;
 let taskPrefix = "task";
-const taskStorage = {};
+let taskStorage;
+let storageLocal ='';
+let storageStats = '';
 
 // STATS SUMMARY ELEMENTS
 
 const statTotal = document.getElementById("stat-total");
 const statDeleted = document.getElementById("stat-deleted");
 const statCompleted = document.getElementById("stat-completed");
-let totalTasks = 0;
-let totalCompleted = 0;
-let totalLate = 0;
+let totalTasks;
+let totalCompleted;
+let totalLate;
 
 // MODAL ELEMENTS
 
@@ -72,6 +74,7 @@ confirmButton.addEventListener("click", function () {
   }
 });
 
+
 function tooltipControl (){
   setTimeout(function () {
     welcomeMsg.classList.add("up-translate");
@@ -85,7 +88,6 @@ function tooltipControl (){
     }, 5000);
     welcomeMsg.classList.remove("down-translate");
   });
-
 }
 
 // ********** Modal Open *********
@@ -103,7 +105,7 @@ dateEntry.addEventListener("input", function () {
   if (dateEntry.value === "") {
     dateEntry.style.color = "#5c9ead";
     timeEntry.disabled = true;
-  } else {
+  } else if (dateEntry.value!== ""){
     timeEntry.disabled = false;
     dateEntry.style.color = "white";
   }
@@ -129,7 +131,7 @@ dateEntry.addEventListener("focusin",function () {
 
 timeEntry.addEventListener("focusin",function () {
   modalError.style.display = "block";
-  modalError.innerText = "Optional - Fill in a time!!";
+  modalError.innerText = "Optional - Fill in a time!";
   timeEntry.addEventListener("focusout",function () {
     modalError.style.display = "none";
   });
@@ -142,12 +144,10 @@ timeEntry.addEventListener("input",function () {
   } else {
     timeEntry.style.color = "white";
   }
-
 });
 
 
 taskEntry.addEventListener("input", function () {
-  
   if (taskEntry.value === "") {
     timeEntry.disabled = true;
     dateEntry.disabled = true;
@@ -178,11 +178,25 @@ function checkDisabled (date, time){
       arguments[val].style.color = "white";
     } 
   }
-  // if(date.value !== "" && date.disabled === true){
-  //   date.style.color = "white";
-  // } else if(date.value !== ""){
-  //   dateEntry.style.color = "#5c9ead";
-  // }
+}
+
+
+function timeValidation (time,currentTime,entry){
+
+  let timeGet;
+  let timeCalc;
+
+  if(entry === "date"){
+    timeGet = time.value.split("-");
+    timeCalc = timeGet.reduce(sum);
+  } else {
+    timeGet = time.value.split(":");
+    timeCalc = timeGet.reduce(sum);
+  }
+
+  console.log(timeGet);
+  console.log(timeCalc);
+
 }
 
 // ********** Modal close *********
@@ -201,7 +215,13 @@ modalClose.addEventListener("click", function () {
       timeEntry.value,
     ];
 
+    storageLocal = JSON.stringify(taskStorage);
+    localStorage.setItem("taskInfo",storageLocal);
+
     taskList.firstElementChild.id = taskPrefix + totalTasks;
+
+    storageStats = JSON.stringify(totalTasks);
+    localStorage.setItem("totalTasks",storageStats);
 
     setTimeout(function () {
       taskList.firstChild.scrollIntoView({ behavior: "smooth" });
@@ -242,6 +262,9 @@ modalClose.addEventListener("click", function () {
     taskStorage[taskId][0] = taskEntry.value;
     taskStorage[taskId][1] = dateEntry.value;
     taskStorage[taskId][2] = timeEntry.value;
+
+    storageLocal = JSON.stringify(taskStorage);
+    localStorage.setItem("taskInfo",storageLocal);
 
     editedTask.value = taskStorage[taskId][0];
 
@@ -327,7 +350,15 @@ taskList.addEventListener("click", function (e) {
     totalTasks -= 1;
     // write function
     delete taskStorage[key];
+
     statTotal.innerText = totalTasks;
+
+    storageStats = JSON.stringify(totalTasks);
+    localStorage.setItem("totalTasks",storageStats);
+
+    storageLocal = JSON.stringify(taskStorage);
+    localStorage.setItem("taskInfo",storageLocal);
+
   } else if (e.target.id === "edit-button") {
     modalTitle.innerText = "Edit Todo";
     setTimeout(function () {
@@ -337,6 +368,8 @@ taskList.addEventListener("click", function (e) {
     dateEntry.value = taskStorage[key][1];
     timeEntry.value = taskStorage[key][2];
     taskId = key;
+    storageLocal = JSON.stringify(taskStorage);
+    localStorage.setItem("taskInfo",storageLocal);
     edit = true;
     modalClose.disabled = false;
   }
@@ -351,11 +384,15 @@ taskList.addEventListener("click", function (e) {
       totalCompleted += 1;
       statCompleted.innerText = totalCompleted;
       taskStorage[e.target.parentElement.id][3] = "true";
+      storageLocal = JSON.stringify(taskStorage);
+      localStorage.setItem("taskInfo",storageLocal);
     } else {
       e.target.nextElementSibling.classList.remove("completed-task");
       totalCompleted -= 1;
       statCompleted.innerText = totalCompleted;
       taskStorage[e.target.parentElement.id][3] = "false";
+      storageLocal = JSON.stringify(taskStorage);
+      localStorage.setItem("taskInfo",storageLocal);
     }
   }
 });
@@ -364,10 +401,14 @@ taskList.addEventListener("click", function (e) {
 
 sortButton1.addEventListener("click", function () {
   sortTasks();
+  storageLocal = JSON.stringify(taskStorage);  
+  localStorage.setItem("taskInfo",storageLocal);
 });
 
 sortButton2.addEventListener("click", function () {
   sortTasks();
+  storageLocal = JSON.stringify(taskStorage);
+  localStorage.setItem("taskInfo",storageLocal);
 });
 
 // ********Function Reset Values To Default *******
@@ -427,7 +468,7 @@ setInterval(function () {
   currentDate = getDateCurrent();
   currentTime = getTimeCurrent();
   checkDate(currentDate, currentTime);
-}, 3000);
+}, 100);
 
 // *********** Check Overdue Task **********
 
@@ -472,7 +513,46 @@ function sortTasks() {
     }
     numItems-=1;
   }
+};
 
-  
-  
-}
+
+// *********** Function Sort All Tasks **********
+
+function reloadTasks(){
+  let getData = localStorage.getItem("taskInfo");
+  let data = JSON.parse(getData);
+
+  if(data === null){
+    totalTasks = 0;
+    totalCompleted = 0;
+    totalLate = 0;
+    taskStorage = {};
+  } else if (data !== null){
+    const userInfo = localStorage.getItem("taskInfo");
+    const userInfoObj = JSON.parse(userInfo);
+    const dataValues = Object.keys(userInfoObj);
+    const firstTask = document.getElementById("task-list");
+    const totalGet = localStorage.getItem("totalTasks");
+    const totalData = JSON.parse(totalGet);
+    totalTasks = totalData;
+    statTotal.innerHTML = totalTasks;
+
+    taskStorage ={};
+
+    for(let k in dataValues){
+      taskStorage[dataValues[k]] = userInfoObj[dataValues[k]];
+    }
+
+    for (let i in dataValues){
+      addTask();
+      firstTask.firstElementChild.id = dataValues[i];
+      firstTask.firstElementChild.firstChild.checked = userInfoObj[dataValues[i]][3];
+      firstTask.firstElementChild.firstChild.nextSibling.value = userInfoObj[dataValues[i]][0];
+    }
+  }
+
+};
+
+window.addEventListener("load", function (){
+  reloadTasks();
+});
