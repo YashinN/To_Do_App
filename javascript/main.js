@@ -20,7 +20,8 @@ let currentTime;
 let taskPrefix = "task";
 let taskStorage;
 let storageLocal ='';
-let storageStats = '';
+let storageDeleted = '';
+let storageCompleted ='';
 
 // STATS SUMMARY ELEMENTS
 
@@ -220,8 +221,8 @@ modalClose.addEventListener("click", function () {
 
     taskList.firstElementChild.id = taskPrefix + totalTasks;
 
-    storageStats = JSON.stringify(totalTasks);
-    localStorage.setItem("totalTasks",storageStats);
+    storageDeleted = JSON.stringify(totalTasks);
+    localStorage.setItem("totalTasks",storageDeleted);
 
     setTimeout(function () {
       taskList.firstChild.scrollIntoView({ behavior: "smooth" });
@@ -353,8 +354,8 @@ taskList.addEventListener("click", function (e) {
 
     statTotal.innerText = totalTasks;
 
-    storageStats = JSON.stringify(totalTasks);
-    localStorage.setItem("totalTasks",storageStats);
+    storageDeleted = JSON.stringify(totalTasks);
+    localStorage.setItem("totalTasks",storageDeleted);
 
     storageLocal = JSON.stringify(taskStorage);
     localStorage.setItem("taskInfo",storageLocal);
@@ -381,18 +382,30 @@ taskList.addEventListener("click", function (e) {
   if (e.target.id === "radio") {
     if (e.target.checked === true) {
       e.target.nextElementSibling.classList.add("completed-task");
+
       totalCompleted += 1;
       statCompleted.innerText = totalCompleted;
-      taskStorage[e.target.parentElement.id][3] = "true";
+
+      taskStorage[e.target.parentElement.id][3] = true;
+
       storageLocal = JSON.stringify(taskStorage);
       localStorage.setItem("taskInfo",storageLocal);
+
+      storageCompleted = JSON.stringify(totalCompleted);
+      localStorage.setItem("totalCompleted",storageCompleted);
+
     } else {
       e.target.nextElementSibling.classList.remove("completed-task");
       totalCompleted -= 1;
+
       statCompleted.innerText = totalCompleted;
-      taskStorage[e.target.parentElement.id][3] = "false";
+      taskStorage[e.target.parentElement.id][3] = false;
+
       storageLocal = JSON.stringify(taskStorage);
       localStorage.setItem("taskInfo",storageLocal);
+
+      storageCompleted = JSON.stringify(totalCompleted);
+      localStorage.setItem("totalCompleted",storageCompleted);
     }
   }
 });
@@ -454,20 +467,33 @@ function checkDate(dateValue, timeValue) {
     if (dateCalc === "") {
       b = "unassigned";
       overdueItem.style.display = "none";
+      overdueItem.classList.remove("overdue");
     } else if (dateCalc < dateValue) {
       overdueItem.style.display = "block";
+      overdueItem.classList.add("overdue");
     } else if (dateCalc <= dateValue && timeCalc <= timeValue) {
       overdueItem.style.display = "block";
+      overdueItem.classList.add("overdue");
     } else {
       overdueItem.style.display = "none";
+      overdueItem.classList.remove("overdue")
     }
   }
 }
+
+function setOverdue() {
+  const allDue = document.querySelectorAll(".overdue");
+  const statOverdue = document.getElementById("stat-overdue");
+  let overdueTotal = allDue.length;
+  statOverdue.innerText = overdueTotal;
+};
+
 
 setInterval(function () {
   currentDate = getDateCurrent();
   currentTime = getTimeCurrent();
   checkDate(currentDate, currentTime);
+  setOverdue();
 }, 100);
 
 // *********** Check Overdue Task **********
@@ -522,6 +548,9 @@ function reloadTasks(){
   let getData = localStorage.getItem("taskInfo");
   let data = JSON.parse(getData);
 
+  let getCompleted = localStorage.getItem("totalCompleted");
+  let dataCompleted = JSON.parse(getCompleted);
+
   if(data === null){
     totalTasks = 0;
     totalCompleted = 0;
@@ -534,8 +563,11 @@ function reloadTasks(){
     const firstTask = document.getElementById("task-list");
     const totalGet = localStorage.getItem("totalTasks");
     const totalData = JSON.parse(totalGet);
+
+    totalCompleted = dataCompleted;
     totalTasks = totalData;
     statTotal.innerHTML = totalTasks;
+    statCompleted.innerText = dataCompleted;
 
     taskStorage ={};
 
@@ -546,7 +578,11 @@ function reloadTasks(){
     for (let i in dataValues){
       addTask();
       firstTask.firstElementChild.id = dataValues[i];
-      firstTask.firstElementChild.firstChild.checked = userInfoObj[dataValues[i]][3];
+      if(userInfoObj[dataValues[i]][3] === undefined){
+        firstTask.firstElementChild.firstChild.checked = false;
+      }else{
+        firstTask.firstElementChild.firstChild.checked = userInfoObj[dataValues[i]][3];
+      }
       firstTask.firstElementChild.firstChild.nextSibling.value = userInfoObj[dataValues[i]][0];
     }
   }
