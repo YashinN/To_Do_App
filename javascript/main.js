@@ -11,10 +11,11 @@ const sortButton1 = document.getElementById("sort-button1");
 const sortButton2 = document.getElementById("sort-button2");
 const mainTitle = document.getElementById("main-title");
 const backgroundControls = document.querySelectorAll(".background-controls");
+const welcomeContainer = document.getElementById("container-welcome");
 
-let userName;
 let edit = false;
 let taskId;
+let userName;
 let currentDate;
 let currentTime;
 let taskPrefix = "task";
@@ -22,6 +23,7 @@ let taskStorage;
 let storageLocal ='';
 let storageDeleted = '';
 let storageCompleted ='';
+let storageName = '';
 
 // STATS SUMMARY ELEMENTS
 
@@ -54,7 +56,6 @@ user.addEventListener("input", function () {
 
 confirmButton.addEventListener("click", function () {
   userName = user.value;
-  const welcomeContainer = document.getElementById("container-welcome");
   const welcomeError = document.getElementById("username-tooltip");
   if (!userName) {
     welcomeError.innerText = `Please fill in your username!`;
@@ -73,6 +74,11 @@ confirmButton.addEventListener("click", function () {
     welcomeContainer.style.display = "none";
     mainContainer.style.display = "block";
   }
+
+  storageName = JSON.stringify(userName);
+  localStorage.setItem("userName",storageName);
+
+  
 });
 
 
@@ -551,12 +557,15 @@ function reloadTasks(){
   let getCompleted = localStorage.getItem("totalCompleted");
   let dataCompleted = JSON.parse(getCompleted);
 
+  let getName = localStorage.getItem("userName");
+  let dataName = JSON.parse(getName);
+
   if(data === null){
     totalTasks = 0;
     totalCompleted = 0;
     totalLate = 0;
     taskStorage = {};
-  } else if (data !== null){
+  } else if (dataName !== null){
     const userInfo = localStorage.getItem("taskInfo");
     const userInfoObj = JSON.parse(userInfo);
     const dataValues = Object.keys(userInfoObj);
@@ -568,8 +577,19 @@ function reloadTasks(){
     totalTasks = totalData;
     statTotal.innerHTML = totalTasks;
     statCompleted.innerText = dataCompleted;
-
+    userName = dataName;
     taskStorage ={};
+
+    welcomeContainer.style.display = "none";
+    mainContainer.style.display = "block";
+
+
+    if(window.innerWidth <= 407){
+      mainTitle.innerHTML = `Hi ${userName}!
+      Create a Todo.`;
+    } else if (window.innerWidth > 407){
+      mainTitle.innerHTML = `Hi ${userName}! Create a Todo for today.`;
+    }
 
     for(let k in dataValues){
       taskStorage[dataValues[k]] = userInfoObj[dataValues[k]];
@@ -584,8 +604,10 @@ function reloadTasks(){
         firstTask.firstElementChild.firstChild.checked = userInfoObj[dataValues[i]][3];
       }
       firstTask.firstElementChild.firstChild.nextSibling.value = userInfoObj[dataValues[i]][0];
-    }asdasdas
+    }
   }
+
+  sortTasks();
 
 };
 
