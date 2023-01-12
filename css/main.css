@@ -470,7 +470,7 @@ li {
   border-radius: 2rem;
   margin: 0;
   text-align: center;
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
   font-size: 1.1rem;
 }
 
@@ -478,7 +478,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem;
+  gap: 1px;
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -909,6 +909,11 @@ li {
 
   .welcome-title{
     font-size: 3.3rem;
+  }
+
+  #user-image{
+    width: 6rem;
+    height: 6rem;
   }
 
   #main-title {

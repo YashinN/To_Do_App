@@ -65,10 +65,10 @@ confirmButton.addEventListener("click", function () {
     welcomeError.innerText = `Plese use 9 characters or less!`;
     tooltipControl();
   } else {
-    if(window.innerWidth <= 407){
+    if(window.innerWidth <= 442){
       mainTitle.innerHTML = `Hi ${userName}!
       Create a Todo.`;
-    } else if (window.innerWidth > 407){
+    } else if (window.innerWidth > 442){
       mainTitle.innerHTML = `Hi ${userName}! Create a Todo for today.`;
     }
     welcomeContainer.style.display = "none";
@@ -584,10 +584,10 @@ function reloadTasks(){
     mainContainer.style.display = "block";
 
 
-    if(window.innerWidth <= 407){
+    if(window.innerWidth <= 442){
       mainTitle.innerHTML = `Hi ${userName}!
       Create a Todo.`;
-    } else if (window.innerWidth > 407){
+    } else if (window.innerWidth > 442){
       mainTitle.innerHTML = `Hi ${userName}! Create a Todo for today.`;
     }
 
@@ -606,9 +606,7 @@ function reloadTasks(){
       firstTask.firstElementChild.firstChild.nextSibling.value = userInfoObj[dataValues[i]][0];
     }
   }
-
   sortTasks();
-
 };
 
 window.addEventListener("load", function (){
