@@ -467,6 +467,9 @@ function checkDate(dateValue, timeValue) {
     let dateCalc = dateFormat.reduce(sum);
     let timeCalc = timeFormat.reduce(sum);
 
+    console.log(dateCalc);
+    console.log(timeCalc);
+
     const overdueItem =
       document.getElementById(date).firstElementChild.nextSibling.nextSibling;
 
@@ -474,15 +477,19 @@ function checkDate(dateValue, timeValue) {
       b = "unassigned";
       overdueItem.style.display = "none";
       overdueItem.classList.remove("overdue");
+      console.log("1");
     } else if (dateCalc < dateValue) {
       overdueItem.style.display = "block";
       overdueItem.classList.add("overdue");
+      console.log("2");
     } else if (dateCalc <= dateValue && timeCalc <= timeValue) {
       overdueItem.style.display = "block";
       overdueItem.classList.add("overdue");
+      console.log("3");
     } else {
       overdueItem.style.display = "none";
-      overdueItem.classList.remove("overdue")
+      overdueItem.classList.remove("overdue");
+      console.log("4");
     }
   }
 }
@@ -494,13 +501,14 @@ function setOverdue() {
   statOverdue.innerText = overdueTotal;
 };
 
+// NB!!!! This code commented out overdue function not work date comparison methos not working.
 
-setInterval(function () {
-  currentDate = getDateCurrent();
-  currentTime = getTimeCurrent();
-  checkDate(currentDate, currentTime);
-  setOverdue();
-}, 100);
+// setInterval(function () {
+//   currentDate = getDateCurrent();
+//   currentTime = getTimeCurrent();
+//   checkDate(currentDate, currentTime);
+//   setOverdue();
+// }, 100);
 
 // *********** Check Overdue Task **********
 
